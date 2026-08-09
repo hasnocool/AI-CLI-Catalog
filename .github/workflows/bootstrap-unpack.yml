@@ -28,9 +28,11 @@ jobs:
       - name: Replace bootstrap tree with catalog tree
         run: |
           set -euo pipefail
-          rsync -a --delete --exclude='.git' /tmp/ai-cli-catalog/AI-CLI-Catalog/ ./
-          rm -rf bootstrap /tmp/ai-cli-catalog /tmp/ai-cli-catalog.tar.gz
-          rm -f .github/workflows/bootstrap-unpack.yml
+          rsync -a --delete \
+            --exclude='.git' \
+            --exclude='.github/workflows/**' \
+            /tmp/ai-cli-catalog/AI-CLI-Catalog/ ./
+          rm -rf bootstrap scripts/__pycache__ /tmp/ai-cli-catalog /tmp/ai-cli-catalog.tar.gz
 
       - name: Commit expanded catalog
         run: |
