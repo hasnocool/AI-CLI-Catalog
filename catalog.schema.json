@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ai-cli-catalog/catalog.schema.json",
+  "title": "AI CLI Catalog",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "last_reviewed",
+    "feature_flag_semantics",
+    "fields",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "last_reviewed": {"type": "string", "format": "date"},
+    "feature_flag_semantics": {"type": "string"},
+    "fields": {"type": "object"},
+    "entries": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "triState": {"type": ["boolean", "null"]},
+    "entry": {
+      "type": "object",
+      "required": [
+        "name",
+        "slug",
+        "category",
+        "provider",
+        "installer",
+        "installer_type",
+        "binary",
+        "url",
+        "open_source",
+        "local_models",
+        "openai_compatible",
+        "mcp",
+        "acp",
+        "subscription_auth",
+        "api_key",
+        "daemon_server",
+        "last_verified",
+        "official_source"
+      ],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "slug": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "category": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "installer": {"type": "string", "minLength": 1},
+        "installer_type": {
+          "type": "string",
+          "enum": [
+            "shell-script",
+            "npm",
+            "bun",
+            "uv",
+            "pip",
+            "pipx",
+            "cargo",
+            "homebrew",
+            "docker",
+            "npx",
+            "binary",
+            "bundled",
+            "other"
+          ]
+        },
+        "binary": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "minLength": 1},
+        "open_source": {"$ref": "#/$defs/triState"},
+        "local_models": {"$ref": "#/$defs/triState"},
+        "openai_compatible": {"$ref": "#/$defs/triState"},
+        "mcp": {"$ref": "#/$defs/triState"},
+        "acp": {"$ref": "#/$defs/triState"},
+        "subscription_auth": {"$ref": "#/$defs/triState"},
+        "api_key": {"$ref": "#/$defs/triState"},
+        "daemon_server": {"$ref": "#/$defs/triState"},
+        "last_verified": {"type": "string", "format": "date"},
+        "official_source": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
