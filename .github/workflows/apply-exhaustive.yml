@@ -1,0 +1,65 @@
+# .github/workflows/apply-exhaustive.yml
+name: Apply exhaustive catalog expansion
+
+on:
+  push:
+    paths:
+      - "bootstrap/exhaustive/**"
+      - ".github/workflows/apply-exhaustive.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct catalog payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat bootstrap/exhaustive/part*.b64 | tr -d '\n\r' | base64 -d > /tmp/exhaustive.tar.gz
+          mkdir -p /tmp/exhaustive
+          tar -xzf /tmp/exhaustive.tar.gz -C /tmp/exhaustive
+          test -n "$(find /tmp/exhaustive -type f -name catalog.json -print -quit)"
+          test -n "$(find /tmp/exhaustive -type f -name README.md -print -quit)"
+
+      - name: Apply catalog and README
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$(find /tmp/exhaustive -type f -name catalog.json -print -quit)" catalog.json
+          cp "$(find /tmp/exhaustive -type f -name README.md -print -quit)" README.md
+          rm -rf bootstrap/exhaustive /tmp/exhaustive /tmp/exhaustive.tar.gz
+
+      - name: Validate expanded catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          python scripts/catalog.py show ironclaw >/dev/null
+          python scripts/catalog.py show deep-agents-code >/dev/null
+          python scripts/catalog.py show dmux >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('catalog.json').read_text())
+          assert len(data['entries']) == 290, len(data['entries'])
+          assert len({e['slug'] for e in data['entries']}) == 290
+          assert '> Catalog entries: **290**' in Path('README.md').read_text()
+          print('Verified 290 catalog entries and README count.')
+          PY
+
+      - name: Commit expanded catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalog.json README.md bootstrap/exhaustive
+          git commit -m "Add 131 unique AI CLI entries" || exit 0
+          git push
