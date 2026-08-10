@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **366**
+> Catalog entries: **383**
 
 ## Catalog schema v2
 
@@ -15,23 +15,23 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
+| `agent-infrastructure` | 48 |
 | `mcp-tooling` | 47 |
-| `agent-infrastructure` | 46 |
-| `agent-harness` | 44 |
+| `agent-harness` | 46 |
 | `coding-agent` | 41 |
 | `agent-orchestrator` | 30 |
 | `provider-agent` | 27 |
+| `inference` | 22 |
 | `agent-framework` | 21 |
-| `inference` | 21 |
 | `provider-infrastructure` | 19 |
-| `observability` | 14 |
+| `observability` | 16 |
 | `eval-harness` | 13 |
-| `gateway` | 12 |
-| `agent-ui` | 7 |
-| `general-ai-cli` | 7 |
+| `gateway` | 13 |
+| `agent-ui` | 9 |
+| `security-eval` | 9 |
+| `general-ai-cli` | 8 |
 | `model-tooling` | 6 |
 | `provider-cli` | 5 |
-| `security-eval` | 3 |
 | `acp-bridge` | 2 |
 | `agent-launcher` | 1 |
 
@@ -370,5 +370,31 @@ This pass added **28** more de-duplicated entries, bringing the catalog to **366
 | MCPorter | `mcp-tooling` | `npm install -g mcporter` | `mcporter` | https://github.com/openclaw/mcporter |
 | projectmem | `agent-infrastructure` | `pip install projectmem` | `projectmem` | https://pypi.org/project/projectmem/ |
 | DeepXiv SDK CLI | `agent-infrastructure` | `pip install "deepxiv-sdk[all]"` | `deepxiv` | https://pypi.org/project/deepxiv-sdk/ |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Third continued expansion — August 2026
+
+This pass added **17** more unique one-line-installable tools, bringing the catalog to **383 entries**.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| CASS (Coding Agent Session Search) | `observability` | `curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.sh?$(date +%s)" \| bash -s -- --easy-mode --verify` | `cass` | https://github.com/Dicklesworthstone/coding_agent_session_search |
+| NClaw | `agent-harness` | `brew install --cask nickalie/apps/nclaw` | `nclaw` | https://github.com/nickalie/nclaw |
+| Leon CLI | `general-ai-cli` | `npm install --global @leon-ai/cli` | `leon` | https://github.com/leon-ai/leon-cli |
+| Agentic Coding Flywheel Setup | `agent-infrastructure` | `curl -fsSL https://agent-flywheel.com/install \| bash` | `acfs` | https://github.com/Dicklesworthstone/agentic_coding_flywheel_setup |
+| Crystal | `agent-ui` | `brew install --cask stravu-crystal` | `Crystal` | https://github.com/stravu/crystal |
+| Agent Sessions | `observability` | `brew tap jazzyalex/agent-sessions && brew install --cask agent-sessions` | `Agent Sessions` | https://github.com/jazzyalex/agent-sessions |
+| AI Agent Session Center | `agent-ui` | `npx ai-agent-session-center` | `npx` | https://github.com/coding-by-feng/ai-agent-session-center |
+| MCPJungle | `gateway` | `brew install mcpjungle/mcpjungle/mcpjungle` | `mcpjungle` | https://github.com/mcpjungle/MCPJungle |
+| AgentMemory | `agent-infrastructure` | `npm install -g @agentmemory/agentmemory` | `agentmemory` | https://github.com/rohitg00/agentmemory |
+| OpenModel | `inference` | `npm install --global @wundercorp/openmodel` | `om` | https://www.npmjs.com/package/@wundercorp/openmodel |
+| mcp-scan | `security-eval` | `npm install -g mcp-scan` | `mcp-scan` | https://github.com/rodolfboctor/mcp-scan |
+| MCP Scanner | `security-eval` | `brew install oabraham1/tap/mcp-scanner` | `mcp-scanner` | https://github.com/oabraham1/mcp-scanner |
+| Agentlint | `security-eval` | `pip install leporis-agentlint` | `agentlint` | https://github.com/Leporis14/agentlint |
+| MCP Safety Warden | `security-eval` | `pip install mcpsafetywarden` | `mcpsafetywarden` | https://github.com/gautamvarmadatla/mcpsafetywarden |
+| Agent Audit | `security-eval` | `pip install agent-audit` | `agent-audit` | https://github.com/HeadyZhang/agent-audit |
+| Snyk Agent Scan | `security-eval` | `uvx snyk-agent-scan@latest` | `snyk-agent-scan` | https://github.com/snyk/agent-scan |
+| IronCurtain | `agent-harness` | `npm install -g @provos/ironcurtain` | `ironcurtain` | https://github.com/provos/ironcurtain |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
