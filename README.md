@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **383**
+> Catalog entries: **400**
 
 ## Catalog schema v2
 
@@ -15,19 +15,19 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 48 |
-| `mcp-tooling` | 47 |
-| `agent-harness` | 46 |
-| `coding-agent` | 41 |
-| `agent-orchestrator` | 30 |
+| `agent-infrastructure` | 52 |
+| `mcp-tooling` | 49 |
+| `agent-harness` | 47 |
+| `coding-agent` | 44 |
+| `agent-orchestrator` | 34 |
 | `provider-agent` | 27 |
-| `inference` | 22 |
+| `inference` | 23 |
 | `agent-framework` | 21 |
 | `provider-infrastructure` | 19 |
 | `observability` | 16 |
+| `gateway` | 14 |
 | `eval-harness` | 13 |
-| `gateway` | 13 |
-| `agent-ui` | 9 |
+| `agent-ui` | 10 |
 | `security-eval` | 9 |
 | `general-ai-cli` | 8 |
 | `model-tooling` | 6 |
@@ -396,5 +396,31 @@ This pass added **17** more unique one-line-installable tools, bringing the cata
 | Agent Audit | `security-eval` | `pip install agent-audit` | `agent-audit` | https://github.com/HeadyZhang/agent-audit |
 | Snyk Agent Scan | `security-eval` | `uvx snyk-agent-scan@latest` | `snyk-agent-scan` | https://github.com/snyk/agent-scan |
 | IronCurtain | `agent-harness` | `npm install -g @provos/ironcurtain` | `ironcurtain` | https://github.com/provos/ironcurtain |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Fourth continued expansion — August 2026
+
+This pass added **17** more de-duplicated one-line-installable tools, taking the catalog past the 400-entry mark to **400 tools**. Current upstream installer/package-manager commands were preferred; uncertain capability flags remain `null`.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| 9router | `gateway` | `npm install -g 9router` | `9router` | https://github.com/decolua/9router |
+| Gnoma | `coding-agent` | `go install somegit.dev/Owlibou/gnoma/cmd/gnoma@latest` | `gnoma` | https://github.com/VikingOwl91/gnoma |
+| Agent Ready | `agent-infrastructure` | `npm install -g @eagerminds/agent-ready` | `agent-ready` | https://github.com/prajapatimehul/agent-ready |
+| Jean Server | `agent-ui` | `curl -fsSL https://raw.githubusercontent.com/coollabsio/jean/main/scripts/install-jean-server.sh \| sudo bash -s -- -y` | `jean-server` | https://github.com/coollabsio/jean |
+| Hummcode | `coding-agent` | `pip install hummcode` | `hummcode` | https://github.com/0xchamin/hummcode |
+| adport | `mcp-tooling` | `npm install -g adport` | `adport` | https://github.com/ynnickw/adport |
+| k8stalk | `agent-harness` | `brew install naman833/k8stalk/k8stalk` | `k8stalk` | https://github.com/naman833/k8stalk |
+| Agent Orchestrator Runtime | `agent-orchestrator` | `npm install -g @bpinhosilva/agent-orchestrator` | `agent-orchestrator` | https://github.com/bpinhosilva/agent-orchestrator |
+| Agency Orchestrator | `agent-orchestrator` | `npm install -g agency-orchestrator` | `ao` | https://github.com/jnMetaCode/agency-orchestrator |
+| FitLab Agent Orchestrator | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/fitlab-ai/agent-orchestrator/main/install.sh \| sh` | `ao` | https://github.com/fitlab-ai/agent-orchestrator |
+| AgentBrain MCP Server | `mcp-tooling` | `npx -y @agentbrain/mcp-server` | `npx` | https://github.com/benmalcom/agentbrain |
+| Aurra | `agent-infrastructure` | `pip install aurra` | `aurra` | https://pypi.org/project/aurra/ |
+| agent-memory | `agent-infrastructure` | `npm install -g myagentmemory` | `agent-memory` | https://github.com/jayzeng/agentmemory |
+| vLLM-Omni | `inference` | `uv pip install vllm-omni` | `vllm` | https://github.com/vllm-project/vllm-omni |
+| Gograph | `agent-infrastructure` | `go install github.com/ozgurcd/gograph@latest` | `gograph` | https://github.com/ozgurcd/gograph |
+| Coder Mux | `agent-orchestrator` | `npm install -g mux@next` | `mux` | https://github.com/coder/mux |
+| Keen Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/mochow13/keen-code/main/scripts/install.sh \| bash` | `keen` | https://github.com/mochow13/keen-code |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
