@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **290**
+> Catalog entries: **338**
 
 ## Catalog schema v2
 
@@ -15,25 +15,25 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-harness` | 42 |
-| `coding-agent` | 36 |
-| `agent-infrastructure` | 28 |
-| `agent-orchestrator` | 27 |
-| `provider-agent` | 26 |
-| `inference` | 19 |
-| `mcp-tooling` | 19 |
-| `provider-infrastructure` | 18 |
-| `agent-framework` | 17 |
-| `observability` | 13 |
-| `gateway` | 11 |
-| `eval-harness` | 9 |
-| `agent-ui` | 6 |
-| `general-ai-cli` | 6 |
+| `agent-harness` | 44 |
+| `coding-agent` | 40 |
+| `agent-infrastructure` | 36 |
+| `mcp-tooling` | 35 |
+| `agent-orchestrator` | 29 |
+| `provider-agent` | 27 |
+| `agent-framework` | 20 |
+| `inference` | 20 |
+| `provider-infrastructure` | 19 |
+| `observability` | 14 |
+| `eval-harness` | 13 |
+| `gateway` | 12 |
+| `agent-ui` | 7 |
+| `general-ai-cli` | 7 |
 | `model-tooling` | 5 |
 | `provider-cli` | 4 |
+| `security-eval` | 3 |
 | `acp-bridge` | 2 |
 | `agent-launcher` | 1 |
-| `security-eval` | 1 |
 
 ## Newly added in the deep-search pass
 
@@ -278,3 +278,60 @@ The README is a human-friendly view. **`catalog.json` is the canonical source of
 ## Contributing
 
 Additions should include an upstream source, a reproducible installer command, the installed binary name, and a fresh `last_verified` date. Capability flags should remain `null` rather than guessed when support has not been verified.
+
+## Continued exhaustive expansion — August 2026
+
+This continuation added **48** additional de-duplicated one-line-installable tools, bringing the catalog to **338 entries**. Commands were checked against current upstream project documentation or repositories; uncertain capability flags remain `null`.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Waza | `eval-harness` | `curl -fsSL https://raw.githubusercontent.com/microsoft/waza/main/install.sh \| bash` | `waza` | https://github.com/microsoft/waza |
+| ClawHub CLI | `agent-infrastructure` | `npm install -g clawhub` | `clawhub` | https://github.com/openclaw/clawhub |
+| Clarity Agent | `agent-framework` | `curl -fsSL https://raw.githubusercontent.com/microsoft/clarity-agent/main/scripts/install.sh \| bash` | `clarity` | https://github.com/microsoft/clarity-agent |
+| Eidos Memory | `agent-infrastructure` | `npm install -g eidos-memory` | `eidos` | https://www.npmjs.com/package/eidos-memory |
+| San | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/genai-io/san/main/install.sh \| bash` | `san` | https://github.com/genai-io/san |
+| picocode | `coding-agent` | `curl -sSfL https://raw.githubusercontent.com/jondot/picocode/main/install.sh \| sh` | `picocode` | https://github.com/jondot/picocode |
+| Zap Coding Agent | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/zap-coding-agent/zap-coding-agent/main/install.sh \| sh` | `zap` | https://github.com/zap-coding-agent/zap-coding-agent |
+| showagent | `agent-infrastructure` | `go install github.com/aytzey/showagent/cmd/showagent@latest` | `showagent` | https://github.com/aytzey/showagent |
+| GitClaw | `agent-framework` | `npm install -g gitclaw` | `gitclaw` | https://github.com/open-gitagent/gitagent |
+| AgentBox | `agent-orchestrator` | `npm install -g @madarco/agentbox` | `agentbox` | https://github.com/madarco/agentbox |
+| Crusoe CLI | `provider-infrastructure` | `brew install crusoecloud/cli/crusoe` | `crusoe` | https://docs.crusoecloud.com/cli/ |
+| HELM | `eval-harness` | `pip install crfm-helm` | `helm-run` | https://github.com/stanford-crfm/helm |
+| NeMo Guardrails | `security-eval` | `pip install nemoguardrails` | `nemoguardrails` | https://github.com/NVIDIA/NeMo-Guardrails |
+| Weights & Biases CLI | `observability` | `pip install wandb` | `wandb` | https://docs.wandb.ai/ref/cli/ |
+| Guardrails AI | `security-eval` | `pip install guardrails-ai` | `guardrails` | https://github.com/guardrails-ai/guardrails |
+| OpenCompass | `eval-harness` | `pip install -U opencompass` | `opencompass` | https://github.com/open-compass/opencompass |
+| Agno CLI | `general-ai-cli` | `pip install agno-cli` | `agno` | https://pypi.org/project/agno-cli/ |
+| MCP-Get | `mcp-tooling` | `npm install -g @michaellatman/mcp-get` | `mcp-get` | https://mcp-get.com/ |
+| KTransformers / SGLang-KT CLI | `inference` | `pip install kt-kernel sglang-kt` | `kt` | https://ktransformers.readthedocs.io/ |
+| Ferro AI Gateway | `gateway` | `go install github.com/ferro-labs/ai-gateway/cmd/ferrogw@latest` | `ferrogw` | https://github.com/ferro-labs/ai-gateway |
+| OpenLore | `agent-infrastructure` | `npm install -g openlore` | `openlore` | https://github.com/clay-good/OpenLore |
+| CodeMie Code | `provider-agent` | `npm install -g @codemieai/code` | `codemie` | https://github.com/codemie-ai/codemie-code |
+| AnyCoding | `agent-ui` | `npm install -g @luzedong/anycoding` | `anycoding` | https://github.com/luzedong/anycoding |
+| Coding Agent Account Manager | `agent-infrastructure` | `curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_account_manager/main/install.sh?$(date +%s)" \| bash` | `caam` | https://github.com/Dicklesworthstone/coding_agent_account_manager |
+| llm-wiki | `agent-infrastructure` | `curl -fsSL https://raw.githubusercontent.com/geronimo-iia/llm-wiki/main/install.sh \| bash` | `llm-wiki` | https://github.com/geronimo-iia/llm-wiki |
+| WebdriverIO MCP | `mcp-tooling` | `npm install -g @wdio/mcp` | `wdio-mcp` | https://github.com/webdriverio/mcp |
+| RayClaw | `agent-harness` | `curl -fsSL https://rayclaw.ai/install.sh \| bash` | `rayclaw` | https://github.com/rayclaw/rayclaw |
+| ZeptoClaw | `agent-harness` | `curl -fsSL https://raw.githubusercontent.com/qhkm/zeptoclaw/main/install.sh \| sh` | `zeptoclaw` | https://github.com/qhkm/zeptoclaw |
+| QwenPaw | `agent-framework` | `curl -fsSL https://qwenpaw.agentscope.io/install.sh \| bash` | `qwenpaw` | https://github.com/agentscope-ai/QwenPaw |
+| HiClaw | `agent-orchestrator` | `bash <(curl -fsSL https://raw.githubusercontent.com/agentscope-ai/HiClaw/main/install/hiclaw-install.sh)` | `hiclaw` | https://github.com/agentscope-ai/HiClaw |
+| OneCLI | `agent-infrastructure` | `curl -fsSL https://onecli.sh/install \| sh` | `onecli` | https://github.com/onecli/onecli |
+| Caido MCP Server | `mcp-tooling` | `curl -fsSL https://raw.githubusercontent.com/c0tton-fluff/caido-mcp-server/main/install.sh \| bash` | `caido-mcp-server` | https://github.com/c0tton-fluff/caido-mcp-server |
+| c7search | `mcp-tooling` | `go install github.com/kevin-burns/c7search@latest` | `c7search` | https://github.com/kevin-burns/c7search |
+| MCP Reference: Everything | `mcp-tooling` | `npx -y @modelcontextprotocol/server-everything` | `npx` | https://github.com/modelcontextprotocol/servers/tree/main/src/everything |
+| MCP Reference: Fetch | `mcp-tooling` | `uvx mcp-server-fetch` | `uvx` | https://github.com/modelcontextprotocol/servers/tree/main/src/fetch |
+| MCP Reference: Filesystem | `mcp-tooling` | `npx -y @modelcontextprotocol/server-filesystem` | `npx` | https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem |
+| MCP Reference: Git | `mcp-tooling` | `uvx mcp-server-git` | `uvx` | https://github.com/modelcontextprotocol/servers/tree/main/src/git |
+| MCP Reference: Memory | `mcp-tooling` | `npx -y @modelcontextprotocol/server-memory` | `npx` | https://github.com/modelcontextprotocol/servers/tree/main/src/memory |
+| MCP Reference: Sequential Thinking | `mcp-tooling` | `npx -y @modelcontextprotocol/server-sequential-thinking` | `npx` | https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking |
+| MCP Reference: Time | `mcp-tooling` | `uvx mcp-server-time` | `uvx` | https://github.com/modelcontextprotocol/servers/tree/main/src/time |
+| Playwright MCP | `mcp-tooling` | `npm install -g @playwright/mcp` | `playwright-mcp` | https://github.com/microsoft/playwright-mcp |
+| Google MCP Server | `mcp-tooling` | `brew install ngs/tap/google-mcp-server` | `google-mcp-server` | https://github.com/ngs/google-mcp-server |
+| GitHub MCP Server | `mcp-tooling` | `docker pull ghcr.io/github/github-mcp-server` | `github-mcp-server` | https://github.com/github/github-mcp-server |
+| Atlassian Jira MCP Server | `mcp-tooling` | `npm install -g @aashari/mcp-server-atlassian-jira` | `mcp-atlassian-jira` | https://github.com/aashari/mcp-server-atlassian-jira |
+| Atlassian Confluence MCP Server | `mcp-tooling` | `npm install -g @aashari/mcp-server-atlassian-confluence` | `mcp-atlassian-confluence` | https://github.com/aashari/mcp-server-atlassian-confluence |
+| Harbor | `agent-infrastructure` | `curl -fsSL https://raw.githubusercontent.com/av/harbor/refs/heads/main/install.sh \| bash` | `harbor` | https://github.com/av/harbor |
+| OpenBench | `eval-harness` | `pip install "git+https://github.com/minghinmatthewlam/openbench.git"` | `obench` | https://github.com/minghinmatthewlam/openbench |
+| Smelt | `coding-agent` | `cargo install smelt` | `smelt` | https://github.com/leonardcser/smelt |
+
+The machine-readable `catalog.json` remains the canonical source of truth for all entries and capability metadata.
