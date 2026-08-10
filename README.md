@@ -2,7 +2,7 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-09
+> Last reviewed: 2026-08-10
 > Catalog entries: **412**
 
 ## Catalog schema v2
