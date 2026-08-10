@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **409**
+> Catalog entries: **412**
 
 ## Catalog schema v2
 
@@ -18,11 +18,11 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 | `agent-infrastructure` | 56 |
 | `mcp-tooling` | 54 |
 | `agent-harness` | 47 |
-| `coding-agent` | 44 |
-| `agent-orchestrator` | 34 |
+| `coding-agent` | 45 |
+| `agent-orchestrator` | 35 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
-| `agent-framework` | 21 |
+| `agent-framework` | 22 |
 | `provider-infrastructure` | 19 |
 | `observability` | 16 |
 | `gateway` | 14 |
@@ -440,5 +440,17 @@ This pass added **9** more de-duplicated one-line-installable tools, bringing th
 | Postman MCP Server | `mcp-tooling` | `npx -y @postman/postman-mcp-server@latest` | `npx` | https://github.com/postmanlabs/postman-mcp-server |
 | Notion MCP Server | `mcp-tooling` | `npx -y @notionhq/notion-mcp-server` | `npx` | https://github.com/makenotion/notion-mcp-server |
 | Sentry MCP Server | `mcp-tooling` | `npx @sentry/mcp-server@latest` | `npx` | https://github.com/getsentry/sentry-mcp |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 10, 2026
+
+This pass adds **3 newly verified terminal-first AI tools** discovered from current upstream documentation and package registries.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| AgentForge CLI | `agent-framework` | `npm install -g @agentforge/cli` | `agentforge` | https://github.com/TVScoundrel/agentforge |
+| Lurus Code CLI | `coding-agent` | `npm install -g @scramble-cloud/lurus-code-cli` | `lurus` | https://code.lurus.ai/en/docs/cli-commands/ |
+| AgentProto CLI | `agent-orchestrator` | `npm install -g @agentproto/cli` | `agentproto` | https://agentproto.sh/cli |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
