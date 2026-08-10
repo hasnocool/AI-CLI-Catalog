@@ -1,0 +1,43 @@
+# .github/workflows/fix-readme-review-date.yml
+name: Synchronize README review date
+
+on:
+  push:
+    paths:
+      - ".github/workflows/fix-readme-review-date.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update and validate review date
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          # scripts/update_readme_review_date.py (inline one-shot maintenance helper)
+          from pathlib import Path
+          path = Path("README.md")
+          text = path.read_text(encoding="utf-8")
+          old = "> Last reviewed: 2026-08-09"
+          new = "> Last reviewed: 2026-08-10"
+          if old not in text and new not in text:
+              raise SystemExit("README review-date marker not found")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+          python scripts/validate_catalog.py
+      - name: Commit documentation synchronization
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/fix-readme-review-date.yml
+          git add README.md .github/workflows/fix-readme-review-date.yml
+          git commit -m "Sync README catalog review date"
+          git push
