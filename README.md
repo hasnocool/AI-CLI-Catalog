@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **338**
+> Catalog entries: **366**
 
 ## Catalog schema v2
 
@@ -15,22 +15,22 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
+| `mcp-tooling` | 47 |
+| `agent-infrastructure` | 46 |
 | `agent-harness` | 44 |
-| `coding-agent` | 40 |
-| `agent-infrastructure` | 36 |
-| `mcp-tooling` | 35 |
-| `agent-orchestrator` | 29 |
+| `coding-agent` | 41 |
+| `agent-orchestrator` | 30 |
 | `provider-agent` | 27 |
-| `agent-framework` | 20 |
-| `inference` | 20 |
+| `agent-framework` | 21 |
+| `inference` | 21 |
 | `provider-infrastructure` | 19 |
 | `observability` | 14 |
 | `eval-harness` | 13 |
 | `gateway` | 12 |
 | `agent-ui` | 7 |
 | `general-ai-cli` | 7 |
-| `model-tooling` | 5 |
-| `provider-cli` | 4 |
+| `model-tooling` | 6 |
+| `provider-cli` | 5 |
 | `security-eval` | 3 |
 | `acp-bridge` | 2 |
 | `agent-launcher` | 1 |
@@ -335,3 +335,40 @@ This continuation added **48** additional de-duplicated one-line-installable too
 | Smelt | `coding-agent` | `cargo install smelt` | `smelt` | https://github.com/leonardcser/smelt |
 
 The machine-readable `catalog.json` remains the canonical source of truth for all entries and capability metadata.
+
+## Second continued expansion — August 2026
+
+This pass added **28** more de-duplicated entries, bringing the catalog to **366 tools**. Each added record has a current upstream one-line installer or package-manager command; uncertain capability flags remain `null`.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Microsoft Conductor | `agent-orchestrator` | `curl -sSfL https://aka.ms/conductor/install.sh \| sh` | `conductor` | https://github.com/microsoft/conductor |
+| Google LiteRT-LM CLI | `inference` | `uv tool install litert-lm` | `litert-lm` | https://developers.google.com/edge/litert-lm/cli/installation |
+| Google LiteRT CLI | `model-tooling` | `pip install -q litert-cli-nightly` | `litert` | https://developers.google.com/edge/litert/cli |
+| Go Micro Agent Harness | `agent-framework` | `curl -fsSL https://go-micro.dev/install.sh \| sh` | `micro` | https://github.com/micro/go-micro |
+| GetMCP CLI | `mcp-tooling` | `npm install -g @getmcp/cli` | `getmcp` | https://www.npmjs.com/package/@getmcp/cli |
+| gopls MCP | `mcp-tooling` | `go install golang.org/x/tools/gopls@latest` | `gopls` | https://go.dev/gopls/features/mcp |
+| Google SecOps MCP | `mcp-tooling` | `uv tool install google-secops-mcp` | `secops_mcp` | https://github.com/google/mcp-security |
+| Google Threat Intelligence MCP | `mcp-tooling` | `uv tool install gti-mcp` | `gti_mcp` | https://pypi.org/project/gti-mcp/ |
+| Google Security Command Center MCP | `mcp-tooling` | `uv tool install scc-mcp` | `scc_mcp` | https://pypi.org/project/scc-mcp/ |
+| Google SecOps SOAR MCP | `mcp-tooling` | `uv tool install secops-soar-mcp` | `secops_soar_mcp` | https://pypi.org/project/secops-soar-mcp/ |
+| NotebookLM MCP CLI | `mcp-tooling` | `uv tool install notebooklm-mcp-cli` | `nlm` | https://pypi.org/project/notebooklm-mcp-cli/ |
+| ClifCode | `coding-agent` | `cargo install --git https://github.com/DLhugly/Clif-Code.git --path clif-code-tui` | `clifcode` | https://github.com/DLhugly/Clif-Code |
+| claimcheck | `agent-infrastructure` | `cargo install claimcheck` | `claimcheck` | https://github.com/ojuschugh1/claimcheck |
+| PleaseAI Chrome DevTools CLI | `agent-infrastructure` | `curl -fsSL https://raw.githubusercontent.com/pleaseai/chrome-devtools-cli/main/install.sh \| bash` | `chrome-devtools` | https://github.com/pleaseai/chrome-devtools-cli |
+| Aeroxy Chrome DevTools CLI | `agent-infrastructure` | `cargo install chrome-devtools-cli` | `chrome-devtools` | https://github.com/aeroxy/chrome-devtools-cli |
+| Agent Memory MCP | `agent-infrastructure` | `go install github.com/ipiton/agent-memory-mcp/cmd/agent-memory-mcp@latest` | `agent-memory-mcp` | https://github.com/ipiton/agent-memory-mcp |
+| Agent Context Lens | `agent-infrastructure` | `python -m pip install "git+https://github.com/ciceroyang/agent-context-lens.git"` | `agent-context-lens` | https://github.com/ciceroyang/agent-context-lens |
+| A2A CLI | `agent-infrastructure` | `pip install a2a-cli` | `a2a` | https://pypi.org/project/a2a-cli/ |
+| Apify mcpc | `mcp-tooling` | `npm install -g @apify/mcpc` | `mcpc` | https://www.npmjs.com/package/@apify/mcpc |
+| mcps Universal MCP Manager | `mcp-tooling` | `npm install -g @itzfaisal/mcp-cli` | `mcps` | https://www.npmjs.com/package/@itzfaisal/mcp-cli |
+| Microsoft Agent Package Manager | `agent-infrastructure` | `curl -sSL https://aka.ms/apm-unix \| sh` | `apm` | https://github.com/microsoft/apm |
+| skillpm | `agent-infrastructure` | `npm install -g skillpm` | `skillpm` | https://skillpm.dev/ |
+| gflow-cli | `provider-cli` | `uv tool install gflow-cli` | `gflow` | https://pypi.org/project/gflow-cli/ |
+| MCP Language Server | `mcp-tooling` | `go install github.com/isaacphi/mcp-language-server@latest` | `mcp-language-server` | https://github.com/isaacphi/mcp-language-server |
+| LSP MCP | `mcp-tooling` | `npm install -g @theupsider/lsp-mcp` | `lsp-mcp` | https://www.npmjs.com/package/@theupsider/lsp-mcp |
+| MCPorter | `mcp-tooling` | `npm install -g mcporter` | `mcporter` | https://github.com/openclaw/mcporter |
+| projectmem | `agent-infrastructure` | `pip install projectmem` | `projectmem` | https://pypi.org/project/projectmem/ |
+| DeepXiv SDK CLI | `agent-infrastructure` | `pip install "deepxiv-sdk[all]"` | `deepxiv` | https://pypi.org/project/deepxiv-sdk/ |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
