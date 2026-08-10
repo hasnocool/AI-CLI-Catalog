@@ -1,0 +1,44 @@
+# .github/workflows/apply-expansion.yml
+name: Apply catalog expansion
+
+on:
+  push:
+    paths:
+      - "bootstrap/expansion/**"
+      - ".github/workflows/apply-expansion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct expansion payload
+        run: |
+          set -euo pipefail
+          cat bootstrap/expansion/part*.b64 | tr -d '\n' | base64 -d > /tmp/expansion.tar.gz
+          mkdir -p /tmp/expansion
+          tar -xzf /tmp/expansion.tar.gz -C /tmp/expansion
+
+      - name: Apply catalog and README
+        run: |
+          set -euo pipefail
+          cp /tmp/expansion/payload/catalog.json catalog.json
+          cp /tmp/expansion/payload/README.md README.md
+          rm -rf bootstrap/expansion /tmp/expansion /tmp/expansion.tar.gz
+
+      - name: Validate and commit
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          python scripts/catalog.py show antigravity-cli >/dev/null
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add 73 AI CLI installers" || exit 0
+          git push
