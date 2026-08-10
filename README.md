@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **159**
+> Catalog entries: **290**
 
 ## Catalog schema v2
 
@@ -15,24 +15,24 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-harness` | 29 |
-| `provider-agent` | 21 |
-| `inference` | 18 |
-| `agent-framework` | 14 |
-| `agent-infrastructure` | 12 |
-| `agent-orchestrator` | 10 |
-| `provider-infrastructure` | 9 |
-| `eval-harness` | 8 |
-| `gateway` | 7 |
-| `mcp-tooling` | 7 |
-| `coding-agent` | 6 |
+| `agent-harness` | 42 |
+| `coding-agent` | 36 |
+| `agent-infrastructure` | 28 |
+| `agent-orchestrator` | 27 |
+| `provider-agent` | 26 |
+| `inference` | 19 |
+| `mcp-tooling` | 19 |
+| `provider-infrastructure` | 18 |
+| `agent-framework` | 17 |
+| `observability` | 13 |
+| `gateway` | 11 |
+| `eval-harness` | 9 |
+| `agent-ui` | 6 |
 | `general-ai-cli` | 6 |
-| `provider-cli` | 3 |
+| `model-tooling` | 5 |
+| `provider-cli` | 4 |
 | `acp-bridge` | 2 |
-| `agent-ui` | 2 |
-| `model-tooling` | 2 |
 | `agent-launcher` | 1 |
-| `observability` | 1 |
 | `security-eval` | 1 |
 
 ## Newly added in the deep-search pass
@@ -145,6 +145,89 @@ This pass adds **73** newly verified, de-duplicated tools, bringing the catalog 
 | Truss | `provider-infrastructure` | `uv tool install truss` | `truss` | https://docs.baseten.co/development/model/truss |
 | garak | `security-eval` | `python -m pip install -U garak` | `garak` | https://github.com/NVIDIA/garak |
 | Antigravity CLI | `provider-agent` | `curl -fsSL https://antigravity.google/cli/install.sh \| bash` | `agy` | https://github.com/google-antigravity/antigravity-cli |
+
+## Exhaustive expansion pass
+
+This pass added **131 unique entries**, expanding the catalog from **159 to 290** tools. Candidates were de-duplicated and pruned when the installer was deprecated, ambiguous, or had a current safety concern. Capability flags remain `null` when they were not verified.
+
+### Additions by category
+
+| Category | New entries |
+|---|---:|
+| `coding-agent` | 30 |
+| `agent-orchestrator` | 17 |
+| `agent-infrastructure` | 16 |
+| `agent-harness` | 13 |
+| `mcp-tooling` | 12 |
+| `observability` | 12 |
+| `provider-infrastructure` | 9 |
+| `provider-agent` | 5 |
+| `agent-ui` | 4 |
+| `gateway` | 4 |
+| `agent-framework` | 3 |
+| `model-tooling` | 3 |
+| `eval-harness` | 1 |
+| `inference` | 1 |
+| `provider-cli` | 1 |
+
+### Representative additions
+
+| Tool | Category | One-line install | Binary |
+|---|---|---|---|
+| Deep Agents Code | `coding-agent` | `curl -LsSf https://langch.in/dcode \| bash` | `dcode` |
+| Roo Code CLI | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/RooCodeInc/Roo-Code/main/apps/cli/install.sh \| sh` | `roo` |
+| pi_agent_rust | `agent-harness` | `curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/pi_agent_rust/main/install.sh?$(date +%s)" \| bash` | `pi` |
+| Ruflo | `agent-orchestrator` | `curl -fsSL https://cdn.jsdelivr.net/gh/ruvnet/ruflo@main/scripts/install.sh \| bash` | `ruflo` |
+| Nanocoder | `coding-agent` | `npm install -g @nanocollective/nanocoder` | `nanocoder` |
+| BLACKBOX CLI | `provider-agent` | `curl -fsSL https://blackbox.ai/install.sh \| bash` | `blackbox` |
+| OpenClaude | `coding-agent` | `npm install -g @gitlawb/openclaude` | `openclaude` |
+| Letta Code | `coding-agent` | `npm install -g @letta-ai/letta-code` | `letta` |
+| Grok Build | `provider-agent` | `curl -fsSL https://x.ai/cli/install.sh \| bash` | `grok` |
+| Kode CLI | `coding-agent` | `npm install -g @shareai-lab/kode` | `kode` |
+| Dexto | `agent-harness` | `npm install -g dexto` | `dexto` |
+| Every Code | `coding-agent` | `npm install -g @just-every/code` | `coder` |
+| jcode | `coding-agent` | `curl -fsSL https://jcode.sh/install \| bash` | `jcode` |
+| MiMo Code | `provider-agent` | `npm install -g @mimo-ai/cli` | `mimo` |
+| agentty | `coding-agent` | `curl -fsSL https://agentty.org/install.sh \| sh` | `agentty` |
+| Nori CLI | `coding-agent` | `npm install -g nori-ai-cli` | `nori` |
+| DvalinCode | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/arthurpanhku/dvalincode/main/scripts/install.sh \| bash` | `dvalincode` |
+| Darce CLI | `coding-agent` | `npm install -g darce-cli` | `darce` |
+| Agent of Empires | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/agent-of-empires/agent-of-empires/main/scripts/install.sh \| bash` | `aoe` |
+| CLI Agent Orchestrator | `agent-orchestrator` | `uv tool install git+https://github.com/awslabs/cli-agent-orchestrator.git@main --upgrade` | `cao` |
+| cmux | `agent-ui` | `brew tap manaflow-ai/cmux && brew install --cask cmux` | `cmux` |
+| Superset CLI | `agent-orchestrator` | `curl -fsSL https://superset.sh/cli/install.sh \| sh` | `superset` |
+| amux | `agent-orchestrator` | `brew install mixpeek/amux/amux` | `amux` |
+| dmux | `agent-orchestrator` | `npm install -g dmux` | `dmux` |
+| AgentManager | `agent-infrastructure` | `brew install kevinelliott/tap/agentmanager` | `agentmgr` |
+| ByteRover CLI | `agent-infrastructure` | `curl -fsSL https://byterover.dev/install.sh \| sh` | `brv` |
+| CocoIndex Code | `agent-infrastructure` | `pipx install 'cocoindex-code[full]'` | `ccc` |
+| Serena | `agent-infrastructure` | `uv tool install -p 3.13 serena-agent` | `serena` |
+| agent-browser | `agent-infrastructure` | `npm install -g agent-browser` | `agent-browser` |
+| agent-install | `agent-infrastructure` | `npx agent-install@latest --help` | `agent-install` |
+| mcp2cli | `mcp-tooling` | `curl -fsSL https://mcp2cli.dev/install.sh \| sh` | `mcp2cli` |
+| mcpo | `mcp-tooling` | `pip install mcpo` | `mcpo` |
+| ToolHive | `mcp-tooling` | `brew tap stacklok/tap && brew install thv` | `thv` |
+| MCPJam CLI | `mcp-tooling` | `npm install -g @mcpjam/cli` | `mcpjam` |
+| Braintrust CLI | `observability` | `curl -fsSL https://bt.dev/cli/install.sh \| bash` | `bt` |
+| Langfuse CLI | `observability` | `npm install -g langfuse-cli` | `langfuse` |
+| Arize AX CLI | `observability` | `pip install arize-ax-cli` | `ax` |
+| Daytona CLI | `provider-infrastructure` | `brew install daytonaio/cli/daytona` | `daytona` |
+| E2B CLI | `provider-infrastructure` | `npm install -g @e2b/cli` | `e2b` |
+| Nebius CLI | `provider-infrastructure` | `curl -sSL https://storage.eu-north1.nebius.cloud/cli/install.sh \| bash` | `nebius` |
+| Fireworks firectl | `provider-infrastructure` | `brew tap fw-ai/firectl && brew install firectl` | `firectl` |
+| dstack CLI | `provider-infrastructure` | `uv tool install dstack -U` | `dstack` |
+| Replicate Cog | `provider-infrastructure` | `sh <(curl -fsSL https://cog.run/install.sh)` | `cog` |
+| Snowflake Cortex Code CLI | `provider-agent` | `curl -LsS https://ai.snowflake.com/static/cc-scripts/install.sh \| sh` | `cortex` |
+| ElevenLabs CLI | `provider-cli` | `npm install -g @elevenlabs/cli` | `elevenlabs` |
+| AgentGateway | `gateway` | `curl -sL https://agentgateway.dev/install \| bash` | `agentgateway` |
+| nanobot | `agent-harness` | `curl -fsSL https://raw.githubusercontent.com/HKUDS/nanobot/main/scripts/install.sh \| sh` | `nanobot` |
+| ZeroClaw | `agent-harness` | `curl -fsSL https://raw.githubusercontent.com/zeroclaw-labs/zeroclaw/master/install.sh \| bash` | `zeroclaw` |
+| IronClaw | `agent-harness` | `curl --proto '=https' --tlsv1.2 -LsSf https://github.com/nearai/ironclaw/releases/latest/download/ironclaw-installer.sh \| sh` | `ironclaw` |
+| NullClaw | `agent-harness` | `brew install nullclaw` | `nullclaw` |
+| Moltis | `agent-harness` | `curl -fsSL https://www.moltis.org/install.sh \| sh` | `moltis` |
+| Octocode | `agent-infrastructure` | `curl -fsSL https://raw.githubusercontent.com/Muvon/octocode/master/install.sh \| sh` | `octocode` |
+
+The complete 290-entry list, including source URLs and capability metadata, lives in **`catalog.json`** and is the canonical source of truth.
 
 ## Built-in catalog CLI
 
