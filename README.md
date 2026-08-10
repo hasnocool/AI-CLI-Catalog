@@ -3,7 +3,7 @@
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
 > Last reviewed: 2026-08-09
-> Catalog entries: **400**
+> Catalog entries: **409**
 
 ## Catalog schema v2
 
@@ -15,8 +15,8 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 52 |
-| `mcp-tooling` | 49 |
+| `agent-infrastructure` | 56 |
+| `mcp-tooling` | 54 |
 | `agent-harness` | 47 |
 | `coding-agent` | 44 |
 | `agent-orchestrator` | 34 |
@@ -422,5 +422,23 @@ This pass added **17** more de-duplicated one-line-installable tools, taking the
 | Gograph | `agent-infrastructure` | `go install github.com/ozgurcd/gograph@latest` | `gograph` | https://github.com/ozgurcd/gograph |
 | Coder Mux | `agent-orchestrator` | `npm install -g mux@next` | `mux` | https://github.com/coder/mux |
 | Keen Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/mochow13/keen-code/main/scripts/install.sh \| bash` | `keen` | https://github.com/mochow13/keen-code |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Fifth continued expansion — August 2026
+
+This pass added **9** more de-duplicated one-line-installable tools, bringing the catalog to **409 entries**. This pass emphasizes memory/context infrastructure, gateways, browser tooling, and official/reference MCP servers.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Prism Coder | `agent-infrastructure` | `npm install -g prism-mcp-server` | `prism` | https://github.com/dcostenco/prism-coder |
+| Neo4j Agent Memory | `agent-infrastructure` | `pip install 'neo4j-agent-memory[cli,mcp]'` | `neo4j-memory` | https://github.com/neo4j-labs/agent-memory |
+| Vault Agent Memory | `agent-infrastructure` | `curl -sSL https://raw.githubusercontent.com/zycaskevin/Vault-Agent-Memory/main/scripts/install.sh \| bash` | `vault` | https://github.com/zycaskevin/Vault-Agent-Memory |
+| IWE | `agent-infrastructure` | `brew tap iwe-org/iwe && brew install iwe` | `iwe` | https://github.com/iwe-org/iwe |
+| Chrome DevTools MCP | `mcp-tooling` | `npm install -g chrome-devtools-mcp@latest` | `chrome-devtools` | https://github.com/ChromeDevTools/chrome-devtools-mcp |
+| Context7 MCP | `mcp-tooling` | `npx -y @upstash/context7-mcp@latest` | `npx` | https://github.com/upstash/context7 |
+| Postman MCP Server | `mcp-tooling` | `npx -y @postman/postman-mcp-server@latest` | `npx` | https://github.com/postmanlabs/postman-mcp-server |
+| Notion MCP Server | `mcp-tooling` | `npx -y @notionhq/notion-mcp-server` | `npx` | https://github.com/makenotion/notion-mcp-server |
+| Sentry MCP Server | `mcp-tooling` | `npx @sentry/mcp-server@latest` | `npx` | https://github.com/getsentry/sentry-mcp |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
