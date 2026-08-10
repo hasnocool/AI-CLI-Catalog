@@ -1,0 +1,132 @@
+# .github/workflows/apply-continuation.yml
+name: Apply continued catalog expansion
+
+on:
+  push:
+    paths:
+      - "bootstrap/continuation/**"
+      - ".github/workflows/apply-continuation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decode verified additions
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 -d bootstrap/continuation/additions.json.gz.b64 | gzip -d > /tmp/additions.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/additions.json'))
+          assert isinstance(data, list) and len(data) >= 50, len(data)
+          assert len({x['slug'] for x in data}) == len(data)
+          print(f"Decoded {len(data)} verified candidates")
+          PY
+
+      - name: Merge, deduplicate, and regenerate README
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from collections import Counter
+          from pathlib import Path
+
+          catalog_path = Path('catalog.json')
+          readme_path = Path('README.md')
+          catalog = json.loads(catalog_path.read_text())
+          candidates = json.loads(Path('/tmp/additions.json').read_text())
+
+          existing_slugs = {e['slug'] for e in catalog['entries']}
+          existing_urls = {e['url'].rstrip('/') for e in catalog['entries']}
+          added = []
+          for entry in candidates:
+              if entry['slug'] in existing_slugs:
+                  continue
+              if entry['url'].rstrip('/') in existing_urls:
+                  continue
+              catalog['entries'].append(entry)
+              existing_slugs.add(entry['slug'])
+              existing_urls.add(entry['url'].rstrip('/'))
+              added.append(entry)
+
+          if len(added) < 25:
+              raise SystemExit(f'Expected a substantial continuation batch; only {len(added)} unique entries survived de-duplication')
+
+          catalog['last_reviewed'] = '2026-08-09'
+          catalog['entries'].sort(key=lambda e: (e['category'].lower(), e['name'].lower(), e['slug']))
+          catalog_path.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + '\n')
+
+          total = len(catalog['entries'])
+          counts = Counter(e['category'] for e in catalog['entries'])
+          readme = readme_path.read_text()
+          readme = re.sub(r'> Catalog entries: \*\*\d+\*\*', f'> Catalog entries: **{total}**', readme, count=1)
+
+          category_table = ['| Category | Entries |', '|---|---:|']
+          category_table += [f'| `{cat}` | {count} |' for cat, count in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]
+          category_block = '## Categories\n\n' + '\n'.join(category_table) + '\n'
+          readme = re.sub(r'## Categories\n.*?(?=\n## )', category_block, readme, count=1, flags=re.S)
+
+          marker = '## Continued exhaustive expansion — August 2026'
+          if marker in readme:
+              readme = readme.split(marker, 1)[0].rstrip() + '\n\n'
+
+          def esc(s):
+              return str(s).replace('|', '\\|').replace('`', '\\`')
+
+          section = [
+              marker,
+              '',
+              f'This continuation added **{len(added)}** additional de-duplicated one-line-installable tools, bringing the catalog to **{total} entries**. Commands were checked against current upstream project documentation or repositories; uncertain capability flags remain `null`.',
+              '',
+              '| Tool | Category | One-line install | Binary | Source |',
+              '|---|---|---|---|---|',
+          ]
+          for e in added:
+              section.append(f"| {esc(e['name'])} | `{esc(e['category'])}` | `{esc(e['installer'])}` | `{esc(e['binary'])}` | {esc(e['url'])} |")
+          section += ['', 'The machine-readable `catalog.json` remains the canonical source of truth for all entries and capability metadata.', '']
+          readme = readme.rstrip() + '\n\n' + '\n'.join(section)
+          readme_path.write_text(readme)
+
+          Path('/tmp/added-count').write_text(str(len(added)))
+          Path('/tmp/total-count').write_text(str(total))
+          print(f'Added {len(added)} unique entries; total is now {total}.')
+          PY
+          rm -rf bootstrap/continuation
+
+      - name: Validate catalog and smoke-test new entries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          python scripts/catalog.py show waza >/dev/null
+          python scripts/catalog.py show onecli >/dev/null
+          python scripts/catalog.py show ferro-ai-gateway >/dev/null
+          python scripts/catalog.py show mcp-server-time >/dev/null
+          python - <<'PY'
+          import json
+          data = json.load(open('catalog.json'))
+          slugs = [e['slug'] for e in data['entries']]
+          assert len(slugs) == len(set(slugs)), 'duplicate slugs'
+          assert len(data['entries']) >= 315, len(data['entries'])
+          print(f"Validated {len(data['entries'])} total entries")
+          PY
+
+      - name: Commit continued expansion
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COUNT="$(cat /tmp/added-count)"
+          git add catalog.json README.md bootstrap/continuation
+          git commit -m "Add ${COUNT} more verified AI CLI entries" || exit 0
+          git push
