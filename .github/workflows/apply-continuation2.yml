@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          base64 -d bootstrap/continuation2/additions.json.gz.b64 | gzip -d > /tmp/additions.json
+          cat bootstrap/continuation2/part*.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/additions.json
           python - <<'PY'
           import json
           data = json.load(open('/tmp/additions.json'))
