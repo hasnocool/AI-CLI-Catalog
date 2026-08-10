@@ -18,17 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decode candidates
+      - name: Load staged candidates
         shell: bash
         run: |
           set -euo pipefail
-          cat bootstrap/continuation4/part*.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/additions.json
           python - <<'PY'
-          import json
-          data=json.load(open('/tmp/additions.json'))
-          assert len(data)==30, len(data)
-          assert len({x['slug'] for x in data})==30
-          print('Decoded 30 candidates')
+          import glob, json
+          out=[]
+          for path in sorted(glob.glob('bootstrap/continuation4/candidate*.json')):
+              obj=json.load(open(path))
+              out.extend(obj if isinstance(obj,list) else [obj])
+          assert len(out)==25, len(out)
+          assert len({x['slug'] for x in out})==25
+          json.dump(out,open('/tmp/additions.json','w'))
+          print('Loaded 25 human-readable candidates')
           PY
 
       - name: Merge, de-duplicate, regenerate README
