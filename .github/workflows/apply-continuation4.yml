@@ -1,0 +1,102 @@
+# .github/workflows/apply-continuation4.yml
+name: Apply fourth continued catalog expansion
+
+on:
+  push:
+    paths:
+      - "bootstrap/continuation4/**"
+      - ".github/workflows/apply-continuation4.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decode candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat bootstrap/continuation4/part*.b64 | tr -d '\n\r' | base64 -d | gzip -d > /tmp/additions.json
+          python - <<'PY'
+          import json
+          data=json.load(open('/tmp/additions.json'))
+          assert len(data)==30, len(data)
+          assert len({x['slug'] for x in data})==30
+          print('Decoded 30 candidates')
+          PY
+
+      - name: Merge, de-duplicate, regenerate README
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,re
+          from collections import Counter
+          from pathlib import Path
+          cp=Path('catalog.json'); rp=Path('README.md')
+          data=json.loads(cp.read_text()); cand=json.load(open('/tmp/additions.json'))
+          slugs={e['slug'] for e in data['entries']}
+          urls={e['url'].rstrip('/').lower() for e in data['entries']}
+          added=[]
+          for e in cand:
+              u=e['url'].rstrip('/').lower()
+              if e['slug'] in slugs or u in urls:
+                  continue
+              data['entries'].append(e); slugs.add(e['slug']); urls.add(u); added.append(e)
+          if len(added)<17:
+              raise SystemExit(f'Need >=17 genuinely new entries to cross 400; only {len(added)} survived de-duplication')
+          data['last_reviewed']='2026-08-09'
+          data['entries'].sort(key=lambda e:(e['category'].lower(),e['name'].lower(),e['slug']))
+          cp.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
+          total=len(data['entries']); counts=Counter(e['category'] for e in data['entries'])
+          if total < 400: raise SystemExit(f'Expected >=400 total entries, got {total}')
+          readme=rp.read_text()
+          readme=re.sub(r'> Catalog entries: \*\*\d+\*\*',f'> Catalog entries: **{total}**',readme,count=1)
+          table=['| Category | Entries |','|---|---:|']+[f'| `{k}` | {v} |' for k,v in sorted(counts.items(),key=lambda kv:(-kv[1],kv[0]))]
+          readme=re.sub(r'## Categories\n.*?(?=\n## )','## Categories\n\n'+'\n'.join(table)+'\n',readme,count=1,flags=re.S)
+          marker='## Fourth continued expansion — August 2026'
+          if marker in readme: readme=readme.split(marker,1)[0].rstrip()+'\n\n'
+          def esc(x): return str(x).replace('|','\\|').replace('`','\\`')
+          sec=[marker,'',f'This pass added **{len(added)}** more de-duplicated one-line-installable tools, taking the catalog past the 400-entry mark to **{total} tools**. Current upstream installer/package-manager commands were preferred; uncertain capability flags remain `null`.','', '| Tool | Category | One-line install | Binary | Source |','|---|---|---|---|---|']
+          for e in added:
+              sec.append(f"| {esc(e['name'])} | `{esc(e['category'])}` | `{esc(e['installer'])}` | `{esc(e['binary'])}` | {esc(e['url'])} |")
+          sec += ['', 'The machine-readable `catalog.json` remains the canonical source of truth.', '']
+          rp.write_text(readme.rstrip()+'\n\n'+'\n'.join(sec))
+          Path('/tmp/added-count').write_text(str(len(added)))
+          Path('/tmp/total-count').write_text(str(total))
+          print(f'Added {len(added)}; total={total}')
+          PY
+          rm -rf bootstrap/continuation4
+
+      - name: Validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          for slug in 9router showagent gnoma hummcode runcap adport vllm-omni gograph; do
+            python scripts/catalog.py show "$slug" >/dev/null
+          done
+          python - <<'PY'
+          import json
+          d=json.load(open('catalog.json')); s=[e['slug'] for e in d['entries']]
+          assert len(s)==len(set(s))
+          assert len(d['entries'])>=400
+          print(f"Validated {len(d['entries'])} unique entries")
+          PY
+
+      - name: Commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COUNT="$(cat /tmp/added-count)"
+          git add catalog.json README.md bootstrap/continuation4
+          git commit -m "Add ${COUNT} more verified AI CLI entries" || exit 0
+          git push
