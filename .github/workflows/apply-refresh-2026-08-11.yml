@@ -1,0 +1,181 @@
+# .github/workflows/apply-refresh-2026-08-11.yml
+name: Apply AI CLI catalog refresh 2026-08-11
+
+on:
+  push:
+    branches:
+      - agent/refresh-cli-catalog-2026-08-11
+    paths:
+      - "bootstrap/refresh-2026-08-11/**"
+      - ".github/workflows/apply-refresh-2026-08-11.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/refresh-cli-catalog-2026-08-11
+
+      - name: Merge verified additions and material installer update
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          from collections import Counter
+          from pathlib import Path
+
+          catalog_path = Path('catalog.json')
+          readme_path = Path('README.md')
+          candidate_path = Path('bootstrap/refresh-2026-08-11/candidates.json')
+
+          data = json.loads(catalog_path.read_text(encoding='utf-8'))
+          change_set = json.loads(candidate_path.read_text(encoding='utf-8'))
+          additions = change_set['additions']
+          updates = change_set['updates']
+          assert len(additions) == 5
+          assert len(updates) == 1
+
+          entries = data['entries']
+          by_slug = {entry['slug']: entry for entry in entries}
+          installers = {entry['installer'].strip().lower() for entry in entries}
+          urls = {entry['url'].rstrip('/').lower() for entry in entries}
+
+          # Replace the now-deprecated FitLab package in place.
+          for update in updates:
+              match_slug = update['match_slug']
+              if match_slug not in by_slug:
+                  raise SystemExit(f'Expected existing entry not found: {match_slug}')
+              replacement = update['entry']
+              existing = by_slug[match_slug]
+              index = entries.index(existing)
+              entries[index] = replacement
+
+          # Rebuild duplicate indexes after the replacement.
+          by_slug = {entry['slug']: entry for entry in entries}
+          installers = {entry['installer'].strip().lower() for entry in entries}
+          urls = {entry['url'].rstrip('/').lower() for entry in entries}
+
+          added = []
+          for entry in additions:
+              normalized_installer = entry['installer'].strip().lower()
+              normalized_url = entry['url'].rstrip('/').lower()
+              if entry['slug'] in by_slug:
+                  raise SystemExit(f"Duplicate slug already present: {entry['slug']}")
+              if normalized_installer in installers:
+                  raise SystemExit(f"Duplicate installer already present: {entry['installer']}")
+              if normalized_url in urls:
+                  raise SystemExit(f"Duplicate URL already present: {entry['url']}")
+              entries.append(entry)
+              by_slug[entry['slug']] = entry
+              installers.add(normalized_installer)
+              urls.add(normalized_url)
+              added.append(entry)
+
+          data['last_reviewed'] = '2026-08-11'
+          entries.sort(key=lambda entry: (entry['category'].lower(), entry['name'].lower(), entry['slug']))
+          catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          total = len(entries)
+          counts = Counter(entry['category'] for entry in entries)
+          readme = readme_path.read_text(encoding='utf-8')
+          readme = re.sub(r'> Last reviewed: \d{4}-\d{2}-\d{2}', '> Last reviewed: 2026-08-11', readme, count=1)
+          readme = re.sub(r'> Catalog entries: \*\*\d+\*\*', f'> Catalog entries: **{total}**', readme, count=1)
+
+          category_table = ['| Category | Entries |', '|---|---:|'] + [
+              f'| `{category}` | {count} |'
+              for category, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+          ]
+          readme = re.sub(
+              r'## Categories\n.*?(?=\n## )',
+              '## Categories\n\n' + '\n'.join(category_table) + '\n',
+              readme,
+              count=1,
+              flags=re.S,
+          )
+
+          # Remove stale FitLab historical installer references anywhere they appear.
+          readme = readme.replace('FitLab Agent Orchestrator', 'FitLab Agent Infra')
+          readme = readme.replace('curl -fsSL https://raw.githubusercontent.com/fitlab-ai/agent-orchestrator/main/install.sh | sh', 'npm install -g @fitlab-ai/agent-infra')
+          readme = readme.replace('https://github.com/fitlab-ai/agent-orchestrator', 'https://github.com/fitlab-ai/agent-infra')
+
+          marker = '## Verified CLI refresh — August 11, 2026'
+          if marker in readme:
+              readme = readme.split(marker, 1)[0].rstrip() + '\n\n'
+
+          def esc(value):
+              return str(value).replace('|', '\\|').replace('`', '\\`')
+
+          section = [
+              marker,
+              '',
+              f'This pass adds **{len(added)} newly verified terminal-first AI tools** and migrates one deprecated installer/package identity. The catalog now contains **{total} entries**.',
+              '',
+              '| Tool | Category | One-line install | Binary | Upstream | Change |',
+              '|---|---|---|---|---|---|',
+          ]
+          changes = {
+              'marvin-coding-agent': 'New terminal-native multi-provider coding agent.',
+              'prjct-cli': 'New agent harness/infrastructure CLI with standalone installer and local daemon.',
+              'spec-guard-cli': 'New governance/spec-driven development CLI for AI coding agents.',
+              'agentsmesh-config-cli': 'New cross-agent configuration and shared-memory CLI with standalone installer.',
+              'faf-cli': 'New git-native AI context/configuration CLI.',
+          }
+          for entry in added:
+              section.append(
+                  f"| {esc(entry['name'])} | `{esc(entry['category'])}` | `{esc(entry['installer'])}` | "
+                  f"`{esc(entry['binary'])}` | {esc(entry['url'])} | {esc(changes[entry['slug']])} |"
+              )
+          replacement = updates[0]['entry']
+          section.append(
+              f"| {esc(replacement['name'])} | `{esc(replacement['category'])}` | `{esc(replacement['installer'])}` | "
+              f"`{esc(replacement['binary'])}` | {esc(replacement['url'])} | Replaces deprecated `@fitlab-ai/agent-orchestrator` package and old installer. |"
+          )
+          section += ['', 'The machine-readable `catalog.json` remains the canonical source of truth.', '']
+          readme_path.write_text(readme.rstrip() + '\n\n' + '\n'.join(section), encoding='utf-8')
+
+          Path('/tmp/total-count').write_text(str(total), encoding='utf-8')
+          print(f'Added {len(added)} entries, updated 1 entry; total={total}')
+          PY
+
+      - name: Validate catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          for slug in marvin-coding-agent prjct-cli spec-guard-cli agentsmesh-config-cli faf-cli fitlab-agent-infra; do
+            python scripts/catalog.py show "$slug" >/dev/null
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('catalog.json').read_text(encoding='utf-8'))
+          slugs = [entry['slug'] for entry in data['entries']]
+          installers = [entry['installer'].strip().lower() for entry in data['entries']]
+          assert len(slugs) == len(set(slugs))
+          assert len(installers) == len(set(installers))
+          assert 'fitlab-agent-orchestrator' not in slugs
+          assert data['last_reviewed'] == '2026-08-11'
+          for wanted in ('marvin-coding-agent', 'prjct-cli', 'spec-guard-cli', 'agentsmesh-config-cli', 'faf-cli', 'fitlab-agent-infra'):
+              assert wanted in slugs
+          print(f"Validated {len(slugs)} unique catalog entries")
+          PY
+
+      - name: Commit generated changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf bootstrap/refresh-2026-08-11
+          rm -f .github/workflows/apply-refresh-2026-08-11.yml
+          git add catalog.json README.md bootstrap/refresh-2026-08-11 .github/workflows/apply-refresh-2026-08-11.yml
+          git commit -m "Refresh verified AI CLI catalog entries"
+          git push origin HEAD:agent/refresh-cli-catalog-2026-08-11
