@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-10
-> Catalog entries: **412**
+> Last reviewed: 2026-08-11
+> Catalog entries: **417**
 
 ## Catalog schema v2
 
@@ -15,11 +15,11 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 56 |
+| `agent-infrastructure` | 61 |
 | `mcp-tooling` | 54 |
 | `agent-harness` | 47 |
-| `coding-agent` | 45 |
-| `agent-orchestrator` | 35 |
+| `coding-agent` | 46 |
+| `agent-orchestrator` | 34 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
@@ -414,7 +414,7 @@ This pass added **17** more de-duplicated one-line-installable tools, taking the
 | k8stalk | `agent-harness` | `brew install naman833/k8stalk/k8stalk` | `k8stalk` | https://github.com/naman833/k8stalk |
 | Agent Orchestrator Runtime | `agent-orchestrator` | `npm install -g @bpinhosilva/agent-orchestrator` | `agent-orchestrator` | https://github.com/bpinhosilva/agent-orchestrator |
 | Agency Orchestrator | `agent-orchestrator` | `npm install -g agency-orchestrator` | `ao` | https://github.com/jnMetaCode/agency-orchestrator |
-| FitLab Agent Orchestrator | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/fitlab-ai/agent-orchestrator/main/install.sh \| sh` | `ao` | https://github.com/fitlab-ai/agent-orchestrator |
+| FitLab Agent Infra | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/fitlab-ai/agent-orchestrator/main/install.sh \| sh` | `ao` | https://github.com/fitlab-ai/agent-infra |
 | AgentBrain MCP Server | `mcp-tooling` | `npx -y @agentbrain/mcp-server` | `npx` | https://github.com/benmalcom/agentbrain |
 | Aurra | `agent-infrastructure` | `pip install aurra` | `aurra` | https://pypi.org/project/aurra/ |
 | agent-memory | `agent-infrastructure` | `npm install -g myagentmemory` | `agent-memory` | https://github.com/jayzeng/agentmemory |
@@ -452,5 +452,20 @@ This pass adds **3 newly verified terminal-first AI tools** discovered from curr
 | AgentForge CLI | `agent-framework` | `npm install -g @agentforge/cli` | `agentforge` | https://github.com/TVScoundrel/agentforge |
 | Lurus Code CLI | `coding-agent` | `npm install -g @scramble-cloud/lurus-code-cli` | `lurus` | https://code.lurus.ai/en/docs/cli-commands/ |
 | AgentProto CLI | `agent-orchestrator` | `npm install -g @agentproto/cli` | `agentproto` | https://agentproto.sh/cli |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Verified CLI refresh — August 11, 2026
+
+This pass adds **5 newly verified terminal-first AI tools** and migrates one deprecated installer/package identity. The catalog now contains **417 entries**.
+
+| Tool | Category | One-line install | Binary | Upstream | Change |
+|---|---|---|---|---|---|
+| Marvin | `coding-agent` | `npm install -g @yeshwanthyk/coding-agent` | `marvin` | https://github.com/Yeshwanthyk/marvin | New terminal-native multi-provider coding agent. |
+| prjct-cli | `agent-infrastructure` | `curl -sSL https://raw.githubusercontent.com/prjct-app/cli/main/scripts/install-standalone.sh \| bash` | `prjct` | https://github.com/prjct-app/cli | New agent harness/infrastructure CLI with standalone installer and local daemon. |
+| spec-guard CLI | `agent-infrastructure` | `npm install -g @spec-guard/cli` | `specguard` | https://github.com/spec-guard/spec-guard | New governance/spec-driven development CLI for AI coding agents. |
+| AgentsMesh Config CLI | `agent-infrastructure` | `curl -fsSL https://github.com/sampleXbro/agentsmesh/releases/latest/download/install.sh \| sh` | `agentsmesh` | https://github.com/sampleXbro/agentsmesh | New cross-agent configuration and shared-memory CLI with standalone installer. |
+| FAF CLI | `agent-infrastructure` | `npm install -g faf-cli` | `faf` | https://github.com/Wolfe-Jam/faf-cli | New git-native AI context/configuration CLI. |
+| FitLab Agent Infra | `agent-infrastructure` | `npm install -g @fitlab-ai/agent-infra` | `ai` | https://github.com/fitlab-ai/agent-infra | Replaces deprecated `@fitlab-ai/agent-orchestrator` package and old installer. |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
