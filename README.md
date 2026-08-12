@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-11
-> Catalog entries: **417**
+> Last reviewed: 2026-08-12
+> Catalog entries: **425**
 
 ## Catalog schema v2
 
@@ -15,17 +15,17 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 61 |
+| `agent-infrastructure` | 63 |
 | `mcp-tooling` | 54 |
+| `coding-agent` | 50 |
 | `agent-harness` | 47 |
-| `coding-agent` | 46 |
 | `agent-orchestrator` | 34 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
 | `provider-infrastructure` | 19 |
 | `observability` | 16 |
-| `gateway` | 14 |
+| `gateway` | 15 |
 | `eval-harness` | 13 |
 | `agent-ui` | 10 |
 | `security-eval` | 9 |
@@ -33,7 +33,7 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 | `model-tooling` | 6 |
 | `provider-cli` | 5 |
 | `acp-bridge` | 2 |
-| `agent-launcher` | 1 |
+| `agent-launcher` | 2 |
 
 ## Newly added in the deep-search pass
 
@@ -467,5 +467,22 @@ This pass adds **5 newly verified terminal-first AI tools** and migrates one dep
 | AgentsMesh Config CLI | `agent-infrastructure` | `curl -fsSL https://github.com/sampleXbro/agentsmesh/releases/latest/download/install.sh \| sh` | `agentsmesh` | https://github.com/sampleXbro/agentsmesh | New cross-agent configuration and shared-memory CLI with standalone installer. |
 | FAF CLI | `agent-infrastructure` | `npm install -g faf-cli` | `faf` | https://github.com/Wolfe-Jam/faf-cli | New git-native AI context/configuration CLI. |
 | FitLab Agent Infra | `agent-infrastructure` | `npm install -g @fitlab-ai/agent-infra` | `ai` | https://github.com/fitlab-ai/agent-infra | Replaces deprecated `@fitlab-ai/agent-orchestrator` package and old installer. |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Verified CLI refresh — August 12, 2026
+
+This pass adds **8 newly verified terminal-first AI tools**, bringing the catalog to **425 entries**.
+
+| Tool | Category | One-line install | Binary | Upstream | Change |
+|---|---|---|---|---|---|
+| LLM Gateway CLI | `gateway` | `npm install -g @llmgateway/cli` | `llmgateway` | https://docs.llmgateway.io/guides/cli | New official gateway/account/coding-agent launcher CLI. |
+| Draht | `coding-agent` | `npm install -g @draht/coding-agent` | `draht` | https://github.com/draht-dev/draht | New terminal coding harness with npm distribution and subscription/API-key auth. |
+| Unity AI Gateway Coding CLI (ucode) | `agent-launcher` | `uv tool install git+https://github.com/databricks/ucode` | `ucode` | https://github.com/databricks/ucode | New Databricks launcher for Codex, Claude Code, Gemini CLI, OpenCode, Copilot CLI, Pi, and Cursor. |
+| CAAMP | `agent-infrastructure` | `npm install -g @cleocode/caamp` | `caamp` | https://github.com/kryptobaseddev/cleo/tree/main/packages/caamp | New cross-agent package manager for skills, MCP servers, and instruction files. |
+| Kimchi | `coding-agent` | `curl -fsSL https://github.com/getkimchi/kimchi/releases/latest/download/install.sh \| bash` | `kimchi` | https://docs.kimchi.dev/docs/kimchi-cli | New multi-model terminal coding harness with one-line release installer. |
+| Sudo Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/sudoprivacy/sudocode/main/install.sh \| sh` | `scode` | https://github.com/sudoprivacy/sudocode | New Rust-native terminal coding agent with ACP server and MCP support. |
+| zaly | `coding-agent` | `npm install -g @zaly/cli` | `zaly` | https://github.com/folke/zaly | New hackable terminal coding agent published as @zaly/cli. |
+| wigolo | `agent-infrastructure` | `npm install -g wigolo` | `wigolo` | https://github.com/KnockOutEZ/wigolo | New local-first web intelligence CLI/MCP server for coding agents. |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
