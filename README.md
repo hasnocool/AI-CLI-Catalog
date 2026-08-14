@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-13
-> Catalog entries: **427**
+> Last reviewed: 2026-08-14
+> Catalog entries: **431**
 
 ## Catalog schema v2
 
@@ -17,14 +17,14 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 |---|---:|
 | `agent-infrastructure` | 65 |
 | `mcp-tooling` | 54 |
-| `coding-agent` | 51 |
+| `coding-agent` | 53 |
 | `agent-harness` | 47 |
-| `agent-orchestrator` | 33 |
+| `agent-orchestrator` | 34 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
 | `provider-infrastructure` | 19 |
-| `observability` | 16 |
+| `observability` | 17 |
 | `gateway` | 15 |
 | `eval-harness` | 13 |
 | `agent-ui` | 10 |
@@ -498,5 +498,18 @@ This pass adds **3 newly verified terminal-first AI tools** and removes the froz
 | ast-outline | `agent-infrastructure` | `uv tool install ast-outline` | `ast-outline` | https://github.com/ast-outline/ast-outline |
 
 **Removed stale entry:** `Agent Orchestrator (ao)` / `@aoagents/ao` because upstream freezes the npm CLI at 0.10.0 and explicitly recommends the desktop distribution for new setups.
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 14, 2026
+
+This pass adds **4 newly verified terminal-first AI tools** discovered from current official documentation and package registries.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Indusagi Coding Agent | `coding-agent` | `npm install -g indusagi-coding-agent` | `indus` | https://www.indusagi.com/cli |
+| Xyne CLI | `coding-agent` | `npm install -g @xyne/xyne-cli` | `xyne` | https://github.com/xyne/xyne-cli |
+| Agent Commander | `agent-orchestrator` | `npm install -g agent-commander` | `start-agent` | https://github.com/link-assistant/agent-commander |
+| Cairn | `observability` | `uv tool install cairn-workspace` | `cairn` | https://github.com/Harsh-Daga/Cairn |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
