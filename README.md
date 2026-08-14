@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-12
-> Catalog entries: **425**
+> Last reviewed: 2026-08-13
+> Catalog entries: **427**
 
 ## Catalog schema v2
 
@@ -15,11 +15,11 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 63 |
+| `agent-infrastructure` | 65 |
 | `mcp-tooling` | 54 |
-| `coding-agent` | 50 |
+| `coding-agent` | 51 |
 | `agent-harness` | 47 |
-| `agent-orchestrator` | 34 |
+| `agent-orchestrator` | 33 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
@@ -484,5 +484,19 @@ This pass adds **8 newly verified terminal-first AI tools**, bringing the catalo
 | Sudo Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/sudoprivacy/sudocode/main/install.sh \| sh` | `scode` | https://github.com/sudoprivacy/sudocode | New Rust-native terminal coding agent with ACP server and MCP support. |
 | zaly | `coding-agent` | `npm install -g @zaly/cli` | `zaly` | https://github.com/folke/zaly | New hackable terminal coding agent published as @zaly/cli. |
 | wigolo | `agent-infrastructure` | `npm install -g wigolo` | `wigolo` | https://github.com/KnockOutEZ/wigolo | New local-first web intelligence CLI/MCP server for coding agents. |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 13, 2026
+
+This pass adds **3 newly verified terminal-first AI tools** and removes the frozen legacy `@aoagents/ao` CLI entry after upstream marked npm distribution as legacy and no longer recommended for new installs.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Tau | `coding-agent` | `uv tool install tau-ai` | `tau` | https://github.com/huggingface/tau |
+| Untether | `agent-infrastructure` | `uv tool install untether` | `untether` | https://github.com/littlebearapps/untether |
+| ast-outline | `agent-infrastructure` | `uv tool install ast-outline` | `ast-outline` | https://github.com/ast-outline/ast-outline |
+
+**Removed stale entry:** `Agent Orchestrator (ao)` / `@aoagents/ao` because upstream freezes the npm CLI at 0.10.0 and explicitly recommends the desktop distribution for new setups.
 
 The machine-readable `catalog.json` remains the canonical source of truth.
