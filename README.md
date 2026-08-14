@@ -414,7 +414,7 @@ This pass added **17** more de-duplicated one-line-installable tools, taking the
 | k8stalk | `agent-harness` | `brew install naman833/k8stalk/k8stalk` | `k8stalk` | https://github.com/naman833/k8stalk |
 | Agent Orchestrator Runtime | `agent-orchestrator` | `npm install -g @bpinhosilva/agent-orchestrator` | `agent-orchestrator` | https://github.com/bpinhosilva/agent-orchestrator |
 | Agency Orchestrator | `agent-orchestrator` | `npm install -g agency-orchestrator` | `ao` | https://github.com/jnMetaCode/agency-orchestrator |
-| FitLab Agent Infra | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/fitlab-ai/agent-orchestrator/main/install.sh \| sh` | `ao` | https://github.com/fitlab-ai/agent-infra |
+| FitLab Agent Infra | `agent-infrastructure` | `npm install -g @fitlab-ai/agent-infra` | `ai` | https://github.com/fitlab-ai/agent-infra |
 | AgentBrain MCP Server | `mcp-tooling` | `npx -y @agentbrain/mcp-server` | `npx` | https://github.com/benmalcom/agentbrain |
 | Aurra | `agent-infrastructure` | `pip install aurra` | `aurra` | https://pypi.org/project/aurra/ |
 | agent-memory | `agent-infrastructure` | `npm install -g myagentmemory` | `agent-memory` | https://github.com/jayzeng/agentmemory |

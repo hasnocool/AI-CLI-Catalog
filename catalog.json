@@ -1695,7 +1695,7 @@
       "acp": false,
       "subscription_auth": false,
       "api_key": false,
-      "daemon_server": null,
+      "daemon_server": true,
       "last_verified": "2026-08-11",
       "official_source": true
     },
@@ -2041,7 +2041,7 @@
     },
     {
       "name": "FitLab Agent Infra",
-      "slug": "fitlab-agent-infra",
+      "slug": "fitlab-agent-orchestrator",
       "category": "agent-infrastructure",
       "provider": "FitLab AI",
       "installer": "npm install -g @fitlab-ai/agent-infra",
@@ -2430,11 +2430,11 @@
       "url": "https://github.com/prjct-app/cli",
       "open_source": true,
       "local_models": false,
-      "openai_compatible": false,
-      "mcp": null,
+      "openai_compatible": true,
+      "mcp": true,
       "acp": null,
       "subscription_auth": false,
-      "api_key": false,
+      "api_key": true,
       "daemon_server": true,
       "last_verified": "2026-08-11",
       "official_source": true
