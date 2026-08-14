@@ -1,0 +1,139 @@
+# .github/workflows/apply-continuation7.yml
+name: Apply August 14 catalog refresh
+
+on:
+  push:
+    paths:
+      - "bootstrap/continuation7/**"
+      - ".github/workflows/apply-continuation7.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge verified candidates and regenerate README metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          from collections import Counter
+          from pathlib import Path
+
+          catalog_path = Path("catalog.json")
+          readme_path = Path("README.md")
+          candidate_path = Path("bootstrap/continuation7/candidates.json")
+
+          data = json.loads(catalog_path.read_text(encoding="utf-8"))
+          candidates = json.loads(candidate_path.read_text(encoding="utf-8"))
+          if len(candidates) != 4:
+              raise SystemExit(f"Expected exactly 4 candidates, found {len(candidates)}")
+
+          slugs = {entry["slug"] for entry in data["entries"]}
+          installers = {entry["installer"].strip().lower() for entry in data["entries"]}
+          urls = {entry["url"].rstrip("/").lower() for entry in data["entries"]}
+          added = []
+
+          for entry in candidates:
+              normalized_url = entry["url"].rstrip("/").lower()
+              normalized_installer = entry["installer"].strip().lower()
+              if entry["slug"] in slugs:
+                  raise SystemExit(f"Duplicate slug already present: {entry['slug']}")
+              if normalized_installer in installers:
+                  raise SystemExit(f"Duplicate installer already present: {entry['installer']}")
+              if normalized_url in urls:
+                  raise SystemExit(f"Duplicate URL already present: {entry['url']}")
+              data["entries"].append(entry)
+              slugs.add(entry["slug"])
+              installers.add(normalized_installer)
+              urls.add(normalized_url)
+              added.append(entry)
+
+          data["last_reviewed"] = "2026-08-14"
+          data["entries"].sort(key=lambda entry: (entry["category"].lower(), entry["name"].lower(), entry["slug"]))
+          catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          total = len(data["entries"])
+          counts = Counter(entry["category"] for entry in data["entries"])
+          readme = readme_path.read_text(encoding="utf-8")
+          readme = re.sub(r"> Last reviewed: \d{4}-\d{2}-\d{2}", "> Last reviewed: 2026-08-14", readme, count=1)
+          readme = re.sub(r"> Catalog entries: \*\*\d+\*\*", f"> Catalog entries: **{total}**", readme, count=1)
+          category_table = ["| Category | Entries |", "|---|---:|"] + [
+              f"| `{category}` | {count} |"
+              for category, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+          ]
+          readme = re.sub(
+              r"## Categories\n.*?(?=\n## )",
+              "## Categories\n\n" + "\n".join(category_table) + "\n",
+              readme,
+              count=1,
+              flags=re.S,
+          )
+
+          marker = "## Newly verified CLIs — August 14, 2026"
+          if marker in readme:
+              readme = readme.split(marker, 1)[0].rstrip() + "\n\n"
+
+          def esc(value):
+              return str(value).replace("|", "\\|").replace("`", "\\`")
+
+          section = [
+              marker,
+              "",
+              "This pass adds **4 newly verified terminal-first AI tools** discovered from current official documentation and package registries.",
+              "",
+              "| Tool | Category | One-line install | Binary | Source |",
+              "|---|---|---|---|---|",
+          ]
+          for entry in added:
+              section.append(
+                  f"| {esc(entry['name'])} | `{esc(entry['category'])}` | `{esc(entry['installer'])}` | "
+                  f"`{esc(entry['binary'])}` | {esc(entry['url'])} |"
+              )
+          section += ["", "The machine-readable `catalog.json` remains the canonical source of truth.", ""]
+          readme_path.write_text(readme.rstrip() + "\n\n" + "\n".join(section), encoding="utf-8")
+
+          Path("/tmp/added-count").write_text(str(len(added)), encoding="utf-8")
+          print(f"Added {len(added)} entries; total={total}")
+          PY
+
+      - name: Validate catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          for slug in indusagi-coding-agent xyne-cli agent-commander-link-assistant cairn-workspace; do
+            python scripts/catalog.py show "$slug" >/dev/null
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("catalog.json").read_text(encoding="utf-8"))
+          slugs = [entry["slug"] for entry in data["entries"]]
+          assert len(slugs) == len(set(slugs))
+          assert data["last_reviewed"] == "2026-08-14"
+          for wanted in ("indusagi-coding-agent", "xyne-cli", "agent-commander-link-assistant", "cairn-workspace"):
+              assert wanted in slugs
+          print(f"Validated {len(data['entries'])} unique entries")
+          PY
+
+      - name: Commit generated catalog changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          COUNT="$(cat /tmp/added-count)"
+          rm -rf bootstrap/continuation7
+          rm -f .github/workflows/apply-continuation7.yml
+          git add catalog.json README.md bootstrap/continuation7 .github/workflows/apply-continuation7.yml
+          git commit -m "Add ${COUNT} August 14 verified AI CLI entries"
+          git push
