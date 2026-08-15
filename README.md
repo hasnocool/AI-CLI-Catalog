@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-14
-> Catalog entries: **431**
+> Last reviewed: 2026-08-15
+> Catalog entries: **436**
 
 ## Catalog schema v2
 
@@ -15,11 +15,11 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 65 |
+| `agent-infrastructure` | 67 |
+| `coding-agent` | 54 |
 | `mcp-tooling` | 54 |
-| `coding-agent` | 53 |
 | `agent-harness` | 47 |
-| `agent-orchestrator` | 34 |
+| `agent-orchestrator` | 36 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
@@ -511,5 +511,19 @@ This pass adds **4 newly verified terminal-first AI tools** discovered from curr
 | Xyne CLI | `coding-agent` | `npm install -g @xyne/xyne-cli` | `xyne` | https://github.com/xyne/xyne-cli |
 | Agent Commander | `agent-orchestrator` | `npm install -g agent-commander` | `start-agent` | https://github.com/link-assistant/agent-commander |
 | Cairn | `observability` | `uv tool install cairn-workspace` | `cairn` | https://github.com/Harsh-Daga/Cairn |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 15, 2026
+
+This pass adds **5** newly verified, de-duplicated terminal-first AI tools, bringing the catalog to **436 entries**.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| UmaDev | `agent-orchestrator` | `npm install -g umadev` | `umadev` | https://github.com/umacloud/umadev |
+| Headless CLI | `agent-orchestrator` | `npm install -g @roberttlange/headless` | `headless` | https://github.com/RobertTLange/headless-cli |
+| Agent Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/avala-ai/agent-code/main/install.sh \| bash` | `agent` | https://github.com/avala-ai/agent-code |
+| Agent Harness (MadeByWild) | `agent-infrastructure` | `npx -y @madebywild/agent-harness-framework` | `harness` | https://github.com/madebywild/agent-harness |
+| Agent Harness (ar27111994) | `agent-infrastructure` | `npm install -g @ar27111994/agent-harness` | `agent-harness` | https://github.com/ar27111994/agent-harness |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
