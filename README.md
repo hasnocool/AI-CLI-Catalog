@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-15
-> Catalog entries: **436**
+> Last reviewed: 2026-08-16
+> Catalog entries: **440**
 
 ## Catalog schema v2
 
@@ -15,8 +15,8 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 67 |
-| `coding-agent` | 54 |
+| `agent-infrastructure` | 69 |
+| `coding-agent` | 56 |
 | `mcp-tooling` | 54 |
 | `agent-harness` | 47 |
 | `agent-orchestrator` | 36 |
@@ -525,5 +525,18 @@ This pass adds **5** newly verified, de-duplicated terminal-first AI tools, brin
 | Agent Code | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/avala-ai/agent-code/main/install.sh \| bash` | `agent` | https://github.com/avala-ai/agent-code |
 | Agent Harness (MadeByWild) | `agent-infrastructure` | `npx -y @madebywild/agent-harness-framework` | `harness` | https://github.com/madebywild/agent-harness |
 | Agent Harness (ar27111994) | `agent-infrastructure` | `npm install -g @ar27111994/agent-harness` | `agent-harness` | https://github.com/ar27111994/agent-harness |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 16, 2026
+
+This pass adds **4** newly verified, de-duplicated terminal-first AI tools, bringing the stacked catalog to **440 entries**.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| X-Code CLI | `coding-agent` | `npm install -g @x-code-cli/cli` | `xc` | https://github.com/woai3c/x-code-cli |
+| TheGitAI CLI | `coding-agent` | `npm install -g @thegitai/cli` | `ai` | https://www.npmjs.com/package/@thegitai/cli |
+| CodeAM CLI | `agent-infrastructure` | `npm install -g codeam-cli` | `codeam` | https://github.com/edgar-durand/codeagent-mobile-clients |
+| mcp-coordinator | `agent-infrastructure` | `npm install -g mcp-coordinator` | `mcp-coordinator` | https://github.com/swoofer/mcp-coordinator |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
