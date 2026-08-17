@@ -2,8 +2,8 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-16
-> Catalog entries: **440**
+> Last reviewed: 2026-08-17
+> Catalog entries: **443**
 
 ## Catalog schema v2
 
@@ -15,11 +15,11 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 69 |
-| `coding-agent` | 56 |
+| `agent-infrastructure` | 70 |
+| `coding-agent` | 57 |
 | `mcp-tooling` | 54 |
 | `agent-harness` | 47 |
-| `agent-orchestrator` | 36 |
+| `agent-orchestrator` | 37 |
 | `provider-agent` | 27 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
@@ -538,5 +538,17 @@ This pass adds **4** newly verified, de-duplicated terminal-first AI tools, brin
 | TheGitAI CLI | `coding-agent` | `npm install -g @thegitai/cli` | `ai` | https://www.npmjs.com/package/@thegitai/cli |
 | CodeAM CLI | `agent-infrastructure` | `npm install -g codeam-cli` | `codeam` | https://github.com/edgar-durand/codeagent-mobile-clients |
 | mcp-coordinator | `agent-infrastructure` | `npm install -g mcp-coordinator` | `mcp-coordinator` | https://github.com/swoofer/mcp-coordinator |
+
+The machine-readable `catalog.json` remains the canonical source of truth.
+
+## Newly verified CLIs — August 17, 2026
+
+This pass adds **3 newly verified terminal-first AI tools** discovered from current upstream repositories and release metadata.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| btch-cli | `coding-agent` | `curl -fsSL https://raw.githubusercontent.com/hostinger-bot/btch-cli/main/install.sh \| bash` | `btch` | https://github.com/hostinger-bot/btch-cli |
+| Wrenyard | `agent-orchestrator` | `curl -fsSL https://raw.githubusercontent.com/wrenyard/wrenyard/main/scripts/install.sh \| bash -s -- --update --bin-dir "$HOME/.local/bin"` | `wrenyard` | https://github.com/wrenyard/wrenyard |
+| Agent Firewall | `agent-infrastructure` | `go install github.com/SamVale29/agent-firewall/cmd/afw@latest` | `afw` | https://github.com/SamVale29/agent-firewall |
 
 The machine-readable `catalog.json` remains the canonical source of truth.
