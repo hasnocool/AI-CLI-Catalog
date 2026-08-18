@@ -6,6 +6,10 @@ on:
     paths:
       - "bootstrap/continuation13/**"
       - ".github/workflows/apply-continuation13.yml"
+  pull_request:
+    paths:
+      - "bootstrap/continuation13/**"
+      - ".github/workflows/apply-continuation13.yml"
   workflow_dispatch:
 
 permissions:
@@ -17,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Merge verified candidates and regenerate README metadata
         shell: bash
@@ -102,7 +108,6 @@ jobs:
           readme_path.write_text(readme.rstrip() + '\n\n' + '\n'.join(section), encoding='utf-8')
 
           Path('/tmp/added-count').write_text(str(len(added)), encoding='utf-8')
-          Path('/tmp/total-count').write_text(str(total), encoding='utf-8')
           print(f'Added {len(added)} entries; total={total}')
           PY
 
@@ -138,4 +143,4 @@ jobs:
           rm -f .github/workflows/apply-continuation13.yml
           git add catalog.json README.md bootstrap/continuation13 .github/workflows/apply-continuation13.yml
           git commit -m "Add ${COUNT} newly verified August 18 AI CLI entries"
-          git push
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
