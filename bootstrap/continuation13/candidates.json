@@ -23,7 +23,7 @@
     "name": "Ariadne",
     "slug": "ariadne-orchestrator",
     "category": "agent-orchestrator",
-    "provider": "haha systems",
+    "provider": "Haha Systems",
     "installer": "go install github.com/haha-systems/ariadne/cmd/ariadne@latest",
     "installer_type": "other",
     "binary": "ariadne",
