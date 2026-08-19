@@ -1,0 +1,122 @@
+# .github/workflows/apply-continuation14.yml
+name: Apply August 18-19 catalog refresh
+
+on:
+  push:
+    paths:
+      - "bootstrap/continuation14/**"
+      - ".github/workflows/apply-continuation14.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge verified candidates and regenerate README
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import re
+          from collections import Counter
+          from pathlib import Path
+
+          catalog_path = Path('catalog.json')
+          readme_path = Path('README.md')
+          candidates = json.loads(Path('bootstrap/continuation14/candidates.json').read_text())
+          if len(candidates) != 8:
+              raise SystemExit(f'Expected 8 candidates, found {len(candidates)}')
+
+          data = json.loads(catalog_path.read_text())
+          slugs = {entry['slug'] for entry in data['entries']}
+          installers = {entry['installer'].strip().lower() for entry in data['entries']}
+          urls = {entry['url'].rstrip('/').lower() for entry in data['entries']}
+          added = []
+          for entry in candidates:
+              slug = entry['slug']
+              installer = entry['installer'].strip().lower()
+              url = entry['url'].rstrip('/').lower()
+              if slug in slugs:
+                  raise SystemExit(f'Duplicate slug: {slug}')
+              if installer in installers:
+                  raise SystemExit(f'Duplicate installer: {entry["installer"]}')
+              if url in urls:
+                  raise SystemExit(f'Duplicate URL: {entry["url"]}')
+              data['entries'].append(entry)
+              slugs.add(slug)
+              installers.add(installer)
+              urls.add(url)
+              added.append(entry)
+
+          data['last_reviewed'] = '2026-08-19'
+          data['entries'].sort(key=lambda e: (e['category'].lower(), e['name'].lower(), e['slug']))
+          catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
+
+          total = len(data['entries'])
+          if total != 451:
+              raise SystemExit(f'Expected 451 entries, found {total}')
+          counts = Counter(entry['category'] for entry in data['entries'])
+          readme = readme_path.read_text()
+          readme = re.sub(r'> Last reviewed: \d{4}-\d{2}-\d{2}', '> Last reviewed: 2026-08-19', readme, count=1)
+          readme = re.sub(r'> Catalog entries: \*\*\d+\*\*', f'> Catalog entries: **{total}**', readme, count=1)
+          table = ['| Category | Entries |', '|---|---:|'] + [
+              f'| `{category}` | {count} |'
+              for category, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+          ]
+          readme = re.sub(
+              r'## Categories\n.*?(?=\n## )',
+              '## Categories\n\n' + '\n'.join(table) + '\n',
+              readme,
+              count=1,
+              flags=re.S,
+          )
+
+          marker = '## Verified CLI discoveries — August 18-19, 2026'
+          if marker in readme:
+              readme = readme.split(marker, 1)[0].rstrip() + '\n\n'
+          def esc(value):
+              return str(value).replace('|', '\\|').replace('`', '\\`')
+          section = [
+              marker,
+              '',
+              f'This refresh adds **{len(added)}** de-duplicated terminal-first AI tools, bringing the stacked catalog to **{total} entries**.',
+              '',
+              '| Tool | Category | One-line install | Binary | Source |',
+              '|---|---|---|---|---|',
+          ]
+          for entry in added:
+              section.append(
+                  f"| {esc(entry['name'])} | `{esc(entry['category'])}` | `{esc(entry['installer'])}` | "
+                  f"`{esc(entry['binary'])}` | {esc(entry['url'])} |"
+              )
+          section += ['', 'The machine-readable `catalog.json` remains the canonical source of truth.', '']
+          readme_path.write_text(readme.rstrip() + '\n\n' + '\n'.join(section))
+          PY
+
+      - name: Validate catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_catalog.py
+          for slug in trellis-mindfold ariadne-orchestrator codeband ouro-ai coder-eval imbue-mngr ccmanager mex-agent; do
+            python scripts/catalog.py show "$slug" >/dev/null
+          done
+
+      - name: Commit generated catalog changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf bootstrap/continuation14
+          rm -f .github/workflows/apply-continuation14.yml
+          git add catalog.json README.md bootstrap/continuation14 .github/workflows/apply-continuation14.yml
+          git commit -m "Add August 18-19 verified AI CLI discoveries"
+          git push
