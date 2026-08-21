@@ -1,5 +1,5 @@
 # .github/workflows/apply-continuation15.yml
-name: Apply August 18-20 catalog refresh
+name: Apply August 18-21 catalog refresh
 
 on:
   push:
@@ -31,8 +31,8 @@ jobs:
           catalog_path = Path('catalog.json')
           readme_path = Path('README.md')
           candidates = json.loads(Path('bootstrap/continuation15/candidates.json').read_text())
-          if len(candidates) != 11:
-              raise SystemExit(f'Expected 11 candidates, found {len(candidates)}')
+          if len(candidates) != 15:
+              raise SystemExit(f'Expected 15 candidates, found {len(candidates)}')
 
           data = json.loads(catalog_path.read_text())
           slugs = {entry['slug'] for entry in data['entries']}
@@ -55,16 +55,16 @@ jobs:
               urls.add(url)
               added.append(entry)
 
-          data['last_reviewed'] = '2026-08-20'
+          data['last_reviewed'] = '2026-08-21'
           data['entries'].sort(key=lambda e: (e['category'].lower(), e['name'].lower(), e['slug']))
           catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
 
           total = len(data['entries'])
-          if total != 454:
-              raise SystemExit(f'Expected 454 entries, found {total}')
+          if total != 458:
+              raise SystemExit(f'Expected 458 entries, found {total}')
           counts = Counter(entry['category'] for entry in data['entries'])
           readme = readme_path.read_text()
-          readme = re.sub(r'> Last reviewed: \d{4}-\d{2}-\d{2}', '> Last reviewed: 2026-08-20', readme, count=1)
+          readme = re.sub(r'> Last reviewed: \d{4}-\d{2}-\d{2}', '> Last reviewed: 2026-08-21', readme, count=1)
           readme = re.sub(r'> Catalog entries: \*\*\d+\*\*', f'> Catalog entries: **{total}**', readme, count=1)
           table = ['| Category | Entries |', '|---|---:|'] + [
               f'| `{category}` | {count} |'
@@ -78,7 +78,7 @@ jobs:
               flags=re.S,
           )
 
-          marker = '## Verified CLI discoveries — August 18-20, 2026'
+          marker = '## Verified CLI discoveries — August 18-21, 2026'
           if marker in readme:
               readme = readme.split(marker, 1)[0].rstrip() + '\n\n'
           def esc(value):
@@ -105,7 +105,7 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/validate_catalog.py
-          for slug in trellis-mindfold ariadne-orchestrator codeband ouro-ai coder-eval imbue-mngr ccmanager mex-agent swival caw-coding-agent-wrapper runtm; do
+          for slug in trellis-mindfold ariadne-orchestrator codeband ouro-ai coder-eval imbue-mngr ccmanager mex-agent swival caw-coding-agent-wrapper runtm dreb gajae-code rhei di-code; do
             python scripts/catalog.py show "$slug" >/dev/null
           done
 
@@ -118,5 +118,5 @@ jobs:
           rm -rf bootstrap/continuation15
           rm -f .github/workflows/apply-continuation15.yml
           git add catalog.json README.md bootstrap/continuation15 .github/workflows/apply-continuation15.yml
-          git commit -m "Add August 18-20 verified AI CLI discoveries"
+          git commit -m "Add August 18-21 verified AI CLI discoveries"
           git push
