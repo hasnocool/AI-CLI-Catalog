@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Shep",
+    "slug": "shep-ai",
+    "category": "agent-orchestrator",
+    "provider": "Shep AI",
+    "installer": "npm install -g @shepai/cli",
+    "installer_type": "npm",
+    "binary": "shep",
+    "url": "https://github.com/shep-ai/shep",
+    "open_source": true,
+    "local_models": null,
+    "openai_compatible": null,
+    "mcp": false,
+    "acp": false,
+    "subscription_auth": null,
+    "api_key": false,
+    "daemon_server": true,
+    "last_verified": "2026-08-23",
+    "official_source": true
+  },
+  {
+    "name": "AIWG",
+    "slug": "aiwg",
+    "category": "agent-infrastructure",
+    "provider": "AIWG",
+    "installer": "npm install -g aiwg",
+    "installer_type": "npm",
+    "binary": "aiwg",
+    "url": "https://github.com/jmagly/aiwg",
+    "open_source": true,
+    "local_models": false,
+    "openai_compatible": false,
+    "mcp": null,
+    "acp": null,
+    "subscription_auth": false,
+    "api_key": false,
+    "daemon_server": null,
+    "last_verified": "2026-08-23",
+    "official_source": true
+  }
+]
