@@ -1,0 +1,42 @@
+[
+  {
+    "name": "AGI CLI",
+    "slug": "phnx-agi-cli",
+    "category": "agent-orchestrator",
+    "provider": "PHNX Labs",
+    "installer": "npm install -g @phnx-labs/agents-cli",
+    "installer_type": "npm",
+    "binary": "agents",
+    "url": "https://github.com/phnx-labs/agi-cli",
+    "open_source": true,
+    "local_models": true,
+    "openai_compatible": true,
+    "mcp": true,
+    "acp": null,
+    "subscription_auth": true,
+    "api_key": true,
+    "daemon_server": true,
+    "last_verified": "2026-08-22",
+    "official_source": true
+  },
+  {
+    "name": "Agentic Kit CLI",
+    "slug": "agentic-kit-cli",
+    "category": "coding-agent",
+    "provider": "Constructive",
+    "installer": "npm install -g @agentic-kit/cli",
+    "installer_type": "npm",
+    "binary": "agent",
+    "url": "https://github.com/constructive-io/constructive",
+    "open_source": true,
+    "local_models": null,
+    "openai_compatible": null,
+    "mcp": null,
+    "acp": null,
+    "subscription_auth": null,
+    "api_key": true,
+    "daemon_server": false,
+    "last_verified": "2026-08-22",
+    "official_source": true
+  }
+]
