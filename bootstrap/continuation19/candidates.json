@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Zero CLI",
+    "slug": "zero-cli-rlm",
+    "category": "coding-agent",
+    "provider": "Ruthvik Anne",
+    "installer": "curl -fsSL https://raw.githubusercontent.com/Ruthvik-Anne/zero/main/install.sh | sh",
+    "installer_type": "other",
+    "binary": "zero",
+    "url": "https://github.com/Ruthvik-Anne/zero",
+    "open_source": true,
+    "local_models": null,
+    "openai_compatible": null,
+    "mcp": true,
+    "acp": null,
+    "subscription_auth": true,
+    "api_key": true,
+    "daemon_server": true,
+    "last_verified": "2026-08-25",
+    "official_source": true
+  },
+  {
+    "name": "Codewhale",
+    "slug": "codewhale",
+    "category": "coding-agent",
+    "provider": "Codewhale",
+    "installer": "npm install -g codewhale",
+    "installer_type": "npm",
+    "binary": "codewhale",
+    "url": "https://github.com/Hmbown/CodeWhale",
+    "open_source": true,
+    "local_models": true,
+    "openai_compatible": null,
+    "mcp": null,
+    "acp": null,
+    "subscription_auth": null,
+    "api_key": true,
+    "daemon_server": false,
+    "last_verified": "2026-08-25",
+    "official_source": true
+  }
+]
