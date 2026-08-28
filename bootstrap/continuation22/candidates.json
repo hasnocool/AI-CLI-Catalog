@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Plain Concepts Agent Harness",
+    "slug": "plainconcepts-agent-harness",
+    "category": "agent-harness",
+    "provider": "Plain Concepts Platform",
+    "installer": "npx @plainconceptsplatform/agent-harness@latest",
+    "installer_type": "npx",
+    "binary": "agent-harness",
+    "url": "https://github.com/PlainConceptsPlatform/agent-harness",
+    "open_source": true,
+    "local_models": null,
+    "openai_compatible": null,
+    "mcp": true,
+    "acp": null,
+    "subscription_auth": null,
+    "api_key": null,
+    "daemon_server": false,
+    "last_verified": "2026-08-28",
+    "official_source": true
+  },
+  {
+    "name": "ADHDev",
+    "slug": "adhdev",
+    "category": "agent-orchestrator",
+    "provider": "ADHDev",
+    "installer": "npm install -g adhdev",
+    "installer_type": "npm",
+    "binary": "adhdev",
+    "url": "https://github.com/vilmire/adhdev",
+    "open_source": true,
+    "local_models": null,
+    "openai_compatible": null,
+    "mcp": null,
+    "acp": true,
+    "subscription_auth": null,
+    "api_key": null,
+    "daemon_server": true,
+    "last_verified": "2026-08-28",
+    "official_source": true
+  }
+]
