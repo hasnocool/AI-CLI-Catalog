@@ -1,0 +1,100 @@
+name: Apply August 31 catalog expansion
+
+on:
+  push:
+    paths:
+      - "bootstrap/continuation25/**"
+      - ".github/workflows/apply-continuation25.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Merge candidates, regenerate README, validate, and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from collections import Counter
+          from pathlib import Path
+
+          catalog_path = Path('catalog.json')
+          readme_path = Path('README.md')
+          candidates = json.loads(Path('bootstrap/continuation25/candidates.json').read_text())
+          data = json.loads(catalog_path.read_text())
+
+          slugs = {e['slug'] for e in data['entries']}
+          installers = {e['installer'].strip().lower() for e in data['entries']}
+          urls = {e['url'].rstrip('/').lower() for e in data['entries']}
+          added = []
+          for entry in candidates:
+              if entry['slug'] in slugs:
+                  raise SystemExit(f"duplicate slug: {entry['slug']}")
+              if entry['installer'].strip().lower() in installers:
+                  raise SystemExit(f"duplicate installer: {entry['installer']}")
+              if entry['url'].rstrip('/').lower() in urls:
+                  raise SystemExit(f"duplicate url: {entry['url']}")
+              data['entries'].append(entry)
+              slugs.add(entry['slug'])
+              installers.add(entry['installer'].strip().lower())
+              urls.add(entry['url'].rstrip('/').lower())
+              added.append(entry)
+
+          data['last_reviewed'] = '2026-08-31'
+          data['entries'].sort(key=lambda e: (e['category'].lower(), e['name'].lower(), e['slug']))
+          catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
+
+          total = len(data['entries'])
+          counts = Counter(e['category'] for e in data['entries'])
+          readme = readme_path.read_text()
+          readme = re.sub(r'> Catalog entries: \*\*\d+\*\*', f'> Catalog entries: **{total}**', readme, count=1)
+          readme = re.sub(
+              r'## Categories\n.*?(?=\n## )',
+              '## Categories\n\n' + '\n'.join(['| Category | Entries |', '|---|---:|'] + [f'| `{k}` | {v} |' for k, v in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))]) + '\n',
+              readme,
+              count=1,
+              flags=re.S,
+          )
+          marker = '## Newly verified CLIs — August 31, 2026'
+          if marker in readme:
+              readme = readme.split(marker, 1)[0].rstrip() + '\n\n'
+          section = [marker, '', 'This pass adds **4 newly verified terminal-first AI tools** discovered from current upstream documentation and package registries.', '', '| Tool | Category | One-line install | Binary | Source |', '|---|---|---|---|---|']
+          for e in added:
+              section.append(f"| {e['name']} | `{e['category']}` | `{e['installer']}` | `{e['binary']}` | {e['url']} |")
+          section += ['', 'The machine-readable `catalog.json` remains the canonical source of truth.', '']
+          readme_path.write_text(readme.rstrip() + '\n\n' + '\n'.join(section))
+          print(f'Added {len(added)} entries; total={total}')
+          PY
+
+          python scripts/validate_catalog.py
+          for slug in synapse-cli-agent harness-cli ba-calderon-agent-harness agenticworkspace-cli; do
+            python scripts/catalog.py show "$slug" >/dev/null
+          done
+
+          python - <<'PY'
+          import json
+          d = json.load(open('catalog.json'))
+          slugs = [e['slug'] for e in d['entries']]
+          assert len(slugs) == len(set(slugs))
+          assert 'synapse-cli-agent' in slugs
+          assert 'harness-cli' in slugs
+          assert 'ba-calderon-agent-harness' in slugs
+          assert 'agenticworkspace-cli' in slugs
+          print(f"Validated {len(d['entries'])} unique entries")
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf bootstrap/continuation25
+          rm -f .github/workflows/apply-continuation25.yml
+          git add catalog.json README.md bootstrap/continuation25 .github/workflows/apply-continuation25.yml
+          git commit -m "Add August 31 verified AI CLI entries"
+          git push
