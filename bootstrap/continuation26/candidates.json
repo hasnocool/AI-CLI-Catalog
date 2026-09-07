@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Code Buddy",
+    "slug": "code-buddy-phuetz",
+    "category": "coding-agent",
+    "provider": "phuetz",
+    "installer": "curl -fsSL https://raw.githubusercontent.com/phuetz/code-buddy/main/install.sh | sh",
+    "installer_type": "shell-script",
+    "binary": "buddy",
+    "url": "https://github.com/phuetz/code-buddy",
+    "open_source": true,
+    "local_models": true,
+    "openai_compatible": true,
+    "mcp": true,
+    "acp": null,
+    "subscription_auth": true,
+    "api_key": true,
+    "daemon_server": true,
+    "last_verified": "2026-09-07",
+    "official_source": true
+  }
+]
