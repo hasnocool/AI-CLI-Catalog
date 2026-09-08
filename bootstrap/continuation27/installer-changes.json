@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Kimi Code CLI",
+    "slug": "kimi-code-cli",
+    "category": "provider-agent",
+    "binary": "kimi",
+    "upstream": "https://github.com/MoonshotAI/kimi-code",
+    "previous_installer": "curl -LsSf https://code.kimi.com/install.sh | bash",
+    "current_installer": "curl -fsSL https://code.kimi.com/kimi-code/install.sh | bash",
+    "change": "Official installer URL changed to the /kimi-code/install.sh path; upstream README currently documents the new command.",
+    "last_verified": "2026-09-08",
+    "official_source": true
+  }
+]
