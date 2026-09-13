@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Talu",
+    "slug": "talu",
+    "category": "inference-runtime",
+    "provider": "aprxi",
+    "installer": "pip install talu",
+    "installer_type": "pip",
+    "binary": "talu",
+    "url": "https://github.com/aprxi/talu",
+    "open_source": true,
+    "local_models": true,
+    "openai_compatible": true,
+    "mcp": null,
+    "acp": null,
+    "subscription_auth": false,
+    "api_key": false,
+    "daemon_server": true,
+    "last_verified": "2026-09-13",
+    "official_source": true
+  }
+]
