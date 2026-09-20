@@ -8,7 +8,7 @@ A machine-readable catalog of terminal-first **AI coding agents**, **agent harne
 
 ## September 2026 deep research expansion
 
-This review adds **60 newly cataloged CLI/agent projects** missing from the August snapshot. It focuses on current terminal-native coding agents, agent harnesses/orchestrators, local-first runtimes, vendor CLIs, and multi-agent workflow tools. Install commands are preserved as one-line entries; source-only projects are explicitly marked `git-source` in `catalog.json`.
+This review adds **60 newly cataloged CLI/agent projects** missing from the August snapshot. It focuses on current terminal-native coding agents, agent harnesses/orchestrators, local-first runtimes, vendor CLIs, and multi-agent workflow tools. Install commands are preserved as one-line entries; source-checkout entries use installer type `other` in `catalog.json` when no package-manager installer was verified.
 
 | Tool | Category | One-line install | Binary | Source |
 |---|---|---|---|---|
