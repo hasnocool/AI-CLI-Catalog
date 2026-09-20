@@ -5825,7 +5825,7 @@
       "category": "inference",
       "provider": "vLLM",
       "installer": "uv pip install vllm --torch-backend=auto",
-      "installer_type": "uv-pip",
+      "installer_type": "uv",
       "binary": "vllm",
       "url": "https://docs.vllm.ai/en/latest/getting_started/quickstart/",
       "open_source": true,
