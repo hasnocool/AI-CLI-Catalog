@@ -2,8 +2,76 @@
 
 A machine-readable catalog of terminal-first **AI coding agents**, **agent harnesses**, **agent orchestrators**, **agent frameworks**, **local inference runtimes**, **gateways**, and supporting CLI infrastructure.
 
-> Last reviewed: 2026-08-14
-> Catalog entries: **431**
+> Last reviewed: 2026-09-20
+> Catalog entries: **491**
+
+
+## September 2026 deep research expansion
+
+This review adds **60 newly cataloged CLI/agent projects** missing from the August snapshot. It focuses on current terminal-native coding agents, agent harnesses/orchestrators, local-first runtimes, vendor CLIs, and multi-agent workflow tools. Install commands are preserved as one-line entries; source-only projects are explicitly marked `git-source` in `catalog.json`.
+
+| Tool | Category | One-line install | Binary | Source |
+|---|---|---|---|---|
+| Claw Code | `coding-agent` | `git clone https://github.com/ultraworkers/claw-code.git && cd claw-code && npm install && npm link` | `claw-code` | https://github.com/ultraworkers/claw-code |
+| Pi | `coding-agent` | `npm install -g --ignore-scripts @earendil-works/pi-coding-agent` | `pi` | https://pi.dev/docs/latest/quickstart |
+| OpenHands | `coding-agent` | `pip install openhands-ai` | `openhands` | https://www.openhands.dev/blog/the-openhands-cli-ai-powered-development-in-your-terminal |
+| Oh My OpenAgent | `agent-harness` | `npm install -g oh-my-opencode` | `oh-my-opencode` | https://github.com/code-yeongyu/oh-my-openagent |
+| Reasonix | `coding-agent` | `npm install -g reasonix` | `reasonix` | https://github.com/esengine/DeepSeek-Reasonix |
+| Prime Agent | `agent-harness` | `uv tool install prime` | `prime` | https://github.com/PrimeIntellect-ai/prime-agent |
+| Trae Agent | `coding-agent` | `git clone https://github.com/bytedance/trae-agent.git && cd trae-agent && uv sync --all-extras` | `trae-agent` | https://github.com/bytedance/trae-agent |
+| Kimi Code | `coding-agent` | `curl -fsSL https://code.kimi.com/kimi-code/install.sh \| bash` | `kimi` | kimi |
+| Grok CLI | `coding-agent` | `git clone https://github.com/superagent-ai/grok-cli.git && cd grok-cli && npm install && npm link` | `grok` | https://github.com/superagent-ai/grok-cli |
+| Devon | `coding-agent` | `pipx install devon_agent && npm install -g devon-tui` | `devon-tui` | https://github.com/entropy-research/Devon |
+| AutoCodeRover | `coding-agent` | `git clone https://github.com/AutoCodeRoverSG/auto-code-rover.git` | `auto-code-rover` | https://github.com/AutoCodeRoverSG/auto-code-rover |
+| Atomic Agent | `coding-agent` | `curl -fsSL https://atomicagent.io/install \| sh` | `atomic-agent` | atomic-agent |
+| Codel | `coding-agent` | `git clone https://github.com/semanser/codel.git && cd codel && pip install -e .` | `codel` | https://github.com/semanser/codel |
+| BitFun | `coding-agent` | `git clone https://github.com/GCWing/BitFun.git` | `bitfun` | https://github.com/GCWing/BitFun |
+| Agentless | `agent-harness` | `git clone https://github.com/OpenAutoCoder/Agentless.git && cd Agentless && pip install -r requirements.txt` | `agentless` | https://github.com/OpenAutoCoder/Agentless |
+| Ouroboros | `agent-orchestrator` | `git clone https://github.com/razzant/ouroboros.git && cd ouroboros && pip install -e .` | `ouroboros` | https://github.com/razzant/ouroboros |
+| Maki | `coding-agent` | `curl -fsSL https://maki.sh/install.sh \| sh` | `maki` | maki |
+| hax | `coding-agent` | `cargo install --git https://github.com/OleksandrChekhovskyi/hax.git hax` | `hax` | https://github.com/OleksandrChekhovskyi/hax |
+| Groq Code CLI | `coding-agent` | `npm install -g groq-code-cli@latest` | `groq` | https://github.com/build-with-groq/groq-code-cli |
+| Tura | `coding-agent` | `npm install -g tura-ai` | `tura` | https://github.com/Tura-AI/tura |
+| g3 | `coding-agent` | `git clone https://github.com/dhanji/g3.git && cd g3 && cargo build --release` | `g3` | https://github.com/dhanji/g3 |
+| Coro Code | `coding-agent` | `git clone https://github.com/Blushyes/coro-code.git && cd coro-code && npm install && npm link` | `coro` | https://github.com/Blushyes/coro-code |
+| LettaBot | `agent-harness` | `git clone https://github.com/letta-ai/lettabot.git` | `lettabot` | https://github.com/letta-ai/lettabot |
+| cursor-agent | `coding-agent` | `git clone https://github.com/civai-technologies/cursor-agent.git` | `cursor-agent` | https://github.com/civai-technologies/cursor-agent |
+| Codex Infinity | `agent-harness` | `git clone https://github.com/lee101/codex-infinity.git` | `codex-infinity` | https://github.com/lee101/codex-infinity |
+| Crab Code | `coding-agent` | `git clone https://github.com/lingcoder/crab-code.git` | `crab-code` | https://github.com/lingcoder/crab-code |
+| Martty | `agent-orchestrator` | `git clone https://github.com/openma-ai/Martty.git` | `martty` | https://github.com/openma-ai/Martty |
+| Zap | `coding-agent` | `git clone https://github.com/zap-coding-agent/zap-coding-agent.git` | `zap` | https://github.com/zap-coding-agent/zap-coding-agent |
+| Nausicaa | `agent-harness` | `git clone https://github.com/jackispm/nausicaa-harness.git` | `nausicaa` | https://github.com/jackispm/nausicaa-harness |
+| Grinta | `coding-agent` | `git clone https://github.com/josephsenior/Grinta-Coding-Agent.git` | `grinta` | https://github.com/josephsenior/Grinta-Coding-Agent |
+| Binharic | `coding-agent` | `git clone https://github.com/CogitatorTech/binharic-cli.git` | `binharic` | https://github.com/CogitatorTech/binharic-cli |
+| Kolega Code | `coding-agent` | `git clone https://github.com/kolega-ai/kolega-code.git` | `kolega` | https://github.com/kolega-ai/kolega-code |
+| memcode | `agent-infrastructure` | `git clone https://github.com/memcode-ai/memcode.git` | `memcode` | https://github.com/memcode-ai/memcode |
+| OB-1 | `coding-agent` | `git clone https://github.com/Overbrilliant/ob-1.git` | `ob-1` | https://github.com/Overbrilliant/ob-1 |
+| Darce | `coding-agent` | `git clone https://github.com/AmerSarhan/darce-cli.git` | `darce` | https://github.com/AmerSarhan/darce-cli |
+| Forge (Norvia Labs) | `coding-agent` | `git clone https://github.com/NorviaLabs/forge.git` | `forge` | https://github.com/NorviaLabs/forge |
+| CLAII | `agent-harness` | `git clone https://github.com/agencyswarm/CLAII.git` | `claii` | https://github.com/agencyswarm/CLAII |
+| Ferrum | `coding-agent` | `git clone https://github.com/ominiverdi/ferrum.git` | `ferrum` | https://github.com/ominiverdi/ferrum |
+| WorkGround2 | `agent-orchestrator` | `git clone https://github.com/KiddPhenix/WorkGround2.git` | `workground2` | https://github.com/KiddPhenix/WorkGround2 |
+| Kolkrabbi | `agent-harness` | `git clone https://github.com/onembyte/kolkrabbi.git` | `kolkrabbi` | https://github.com/onembyte/kolkrabbi |
+| NanoClaw | `agent-harness` | `git clone https://github.com/gavrielc/nanoclaw.git` | `nanoclaw` | https://github.com/gavrielc/nanoclaw |
+| PicoClaw | `agent-harness` | `git clone https://github.com/sipeed/picoclaw.git` | `picoclaw` | https://github.com/sipeed/picoclaw |
+| Clawith | `agent-harness` | `git clone https://github.com/dataelement/Clawith.git` | `clawith` | https://github.com/dataelement/Clawith |
+| claw0 | `agent-harness` | `git clone https://github.com/shareAI-lab/claw0.git` | `claw0` | https://github.com/shareAI-lab/claw0 |
+| LionClaw | `agent-harness` | `git clone https://github.com/moshthepitt/lionclaw.git` | `lionclaw` | https://github.com/moshthepitt/lionclaw |
+| Warp | `agent-ui` | `brew install --cask warp` | `warp` | https://github.com/warpdotdev/Warp |
+| GitHub Copilot in the CLI | `provider-agent` | `npm install -g @github/copilot` | `copilot` | https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli |
+| Command Code | `coding-agent` | `git clone https://github.com/CommandCodeAI/command-code.git` | `command-code` | https://github.com/CommandCodeAI/command-code |
+| Ante | `agent-harness` | `git clone https://github.com/AntigmaLabs/ante-preview.git` | `ante` | https://github.com/AntigmaLabs/ante-preview |
+| pool | `agent-orchestrator` | `git clone https://github.com/poolsideai/pool.git` | `pool` | https://github.com/poolsideai/pool |
+| Auggie | `provider-agent` | `npm install -g @augmentcode/auggie` | `auggie` | https://www.augmentcode.com/product/CLI |
+| Droid | `provider-agent` | `npm install -g droid` | `droid` | https://docs.factory.ai/droid-cli/cli-reference |
+| TheGitAI | `coding-agent` | `git clone https://github.com/thegitai/thegitai-cli.git` | `thegitai` | https://github.com/thegitai/thegitai-cli |
+| FetchCoder | `coding-agent` | `git clone https://github.com/fetchai/fetchcoder-releases.git` | `fetchcoder` | https://github.com/fetchai/fetchcoder-releases |
+| Cursor CLI | `provider-agent` | `curl https://cursor.com/install -fsS \| bash` | `agent` | agent |
+| Tabnine CLI | `provider-agent` | `git clone https://github.com/codota/tabnine-cli.git` | `tabnine` | https://docs.tabnine.com/main/getting-started/tabnine-cli |
+| AionUi | `agent-ui` | `git clone https://github.com/iOfficeAI/AionUi.git` | `aionui` | https://github.com/iOfficeAI/AionUi |
+| vibe-kanban | `agent-orchestrator` | `npx vibe-kanban` | `vibe-kanban` | https://github.com/BloopAI/vibe-kanban |
+| mux | `agent-orchestrator` | `git clone https://github.com/coder/mux.git` | `mux` | https://github.com/coder/mux |
+| Kimi CLI | `coding-agent` | `uv tool install --python 3.13 kimi-cli` | `kimi` | https://github.com/MoonshotAI/kimi-cli |
 
 ## Catalog schema v2
 
@@ -15,19 +83,19 @@ Key fields: `category`, `installer`, `installer_type`, `binary`, `open_source`, 
 
 | Category | Entries |
 |---|---:|
-| `agent-infrastructure` | 65 |
+| `coding-agent` | 85 |
+| `agent-infrastructure` | 66 |
+| `agent-harness` | 61 |
 | `mcp-tooling` | 54 |
-| `coding-agent` | 53 |
-| `agent-harness` | 47 |
-| `agent-orchestrator` | 34 |
-| `provider-agent` | 27 |
+| `agent-orchestrator` | 40 |
+| `provider-agent` | 32 |
 | `inference` | 23 |
 | `agent-framework` | 22 |
 | `provider-infrastructure` | 19 |
 | `observability` | 17 |
 | `gateway` | 15 |
 | `eval-harness` | 13 |
-| `agent-ui` | 10 |
+| `agent-ui` | 12 |
 | `security-eval` | 9 |
 | `general-ai-cli` | 8 |
 | `model-tooling` | 6 |
