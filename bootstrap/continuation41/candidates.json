@@ -1,0 +1,23 @@
+[
+  {
+    "name": "clai",
+    "slug": "clai",
+    "category": "coding-agent",
+    "provider": "pentoshi007/clai",
+    "installer": "curl -fsSL https://downloads.clai.aniketpandey.website/install/install.sh | sh",
+    "installer_type": "shell-script",
+    "binary": "clai",
+    "url": "https://github.com/pentoshi007/clai",
+    "open_source": true,
+    "local_models": true,
+    "openai_compatible": true,
+    "mcp": true,
+    "acp": null,
+    "subscription_auth": false,
+    "api_key": true,
+    "daemon_server": true,
+    "last_verified": "2026-09-22",
+    "official_source": true,
+    "notes": "New terminal-first TypeScript coding and authorized pentesting agent. Current upstream documents macOS/Linux shell installers plus npm and Windows/Scoop options, full-screen OpenTUI or Ink UI, noninteractive streaming, free-tier-first multi-provider routing with key rotation, local Ollama support, persistent PTY sessions, durable task plans, MCP, safety gates, and checksum-verified release downloads with GitHub fallback."
+  }
+]
